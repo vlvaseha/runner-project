@@ -1,15 +1,23 @@
+using Gameplay;
+using Managers;
+using Managers.Storage;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.AddressableAssets;
+using Zenject;
 
 namespace GameUi
 {
-    public class GameplayWindow : Window, IPointerDownHandler 
+    public class GameplayWindow : Window
     {
         #region Fields
 
-        [SerializeField] private TapToPlayView _tapToPlayView;
+        [SerializeField] private UiStartPanel _startPanel;
+
+        [Inject] private AssetInstanceCreator _assetInstanceCreator;
+        [Inject] private PrefabsManager _prefabsManager;
         
         private GameplayWindowPresenter _gameplayWindowPresenter;
+        private IPlayerInput _playerInput;
 
         #endregion
         
@@ -18,18 +26,27 @@ namespace GameUi
         public override void Show()
         {
             _gameplayWindowPresenter = Arguments as GameplayWindowPresenter;
-            _gameplayWindowPresenter.SetView(this);
+            _gameplayWindowPresenter.Initialize(this);
+            
+            _startPanel.StartButtonClicked.AddListener(StartButtonClickedHandler);
         }
 
         public override void Hide()
         {
-            
+            _startPanel.StartButtonClicked.RemoveListener(StartButtonClickedHandler);
         }
 
-        void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
+        public IPlayerInput CreateUiPlayerInput()
         {
-            _gameplayWindowPresenter.ProcessUiPointerDown();
-            _tapToPlayView.Hide();
+            AssetReference assetReference = _prefabsManager.GetUiAssetReferenceById(UiPrefabsIds.UiInput);
+
+            _playerInput = _assetInstanceCreator.Instantiate<UiPlayerInput>(assetReference, transform);
+            return _playerInput;
+        }
+
+        private void StartButtonClickedHandler()
+        {
+            _gameplayWindowPresenter.StartButtonPressed();
         }
         
         #endregion

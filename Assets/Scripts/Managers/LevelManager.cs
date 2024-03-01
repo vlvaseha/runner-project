@@ -38,23 +38,13 @@ namespace Managers
             _currentLevel = CreateLevel();
             _currentLevel.Initialize();
 
-            var gameplayWindowPresenter = UiServiceContainer.Instance.GameplayWindowPresenter;
-            gameplayWindowPresenter.OnPointerDown.AddListener(UiPointerDownHandler);
-            
+            GameplayWindowPresenter gameplayWindowPresenter = UiServiceContainer.Instance.GameplayWindowPresenter;
             _uiWindows.Open<GameplayWindow>(gameplayWindowPresenter);
         }
         
         #endregion
 
         #region Methods
-
-        private void UiPointerDownHandler()
-        {
-            var gameplayWindowPresenter = UiServiceContainer.Instance.GameplayWindowPresenter;
-            gameplayWindowPresenter.OnPointerDown.RemoveListener(_currentLevel.StartLevel);
-
-            _currentLevel.StartLevel();
-        }
 
         private BaseLevel CreateLevel()
         {
@@ -63,7 +53,7 @@ namespace Managers
 
         private UiWindows CreateUiWindows()
         {
-            AssetReference uiWindowsAssetReference = _prefabsManager.GetUiWindowsReferenceById(UiPrefabsIds.UiWindows);
+            AssetReference uiWindowsAssetReference = _prefabsManager.GetUiAssetReferenceById(UiPrefabsIds.UiWindows);
             return _assetInstanceCreator.Instantiate<UiWindows>(uiWindowsAssetReference, null);
         }
 

@@ -1,3 +1,4 @@
+using Gameplay;
 using UnityEngine.Events;
 
 namespace GameUi
@@ -6,25 +7,32 @@ namespace GameUi
     {
         #region Events
 
-        public UnityEvent OnPointerDown { get; }
-
+        public UnityEvent StartButtonClicked { get; }
+        
         #endregion
         
         #region Class lifecycle
 
         public GameplayWindowPresenter(WindowType type) : base(type)
         {
-            OnPointerDown = new UnityEvent();
+            StartButtonClicked = new UnityEvent();
         }
         
         #endregion
 
         #region Methods
 
-        public void ProcessUiPointerDown()
+        public override void Initialize(GameplayWindow windowView)
         {
-            OnPointerDown?.Invoke();
+            base.Initialize(windowView);
         }
+
+        public void StartButtonPressed()
+        {
+            StartButtonClicked?.Invoke();
+        }
+
+        public IPlayerInput GetPlayerInput() => WindowView.CreateUiPlayerInput();
 
         #endregion
         

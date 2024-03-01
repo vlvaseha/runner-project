@@ -37,7 +37,7 @@ namespace GameUi
         {
             string windowName = windowType.Name;
 
-            AssetReference windowObjectRef = _gameAssetData.GetUiWindowsReferenceById(windowName);
+            AssetReference windowObjectRef = _gameAssetData.GetUiAssetReferenceById(windowName);
 
             if (windowObjectRef == null)
             {

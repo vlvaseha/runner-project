@@ -22,7 +22,7 @@ namespace GameUi
 
         #region Methods
 
-        public void SetView(TWindow windowView)
+        public virtual void Initialize(TWindow windowView)
         {
             WindowView = windowView;
         }

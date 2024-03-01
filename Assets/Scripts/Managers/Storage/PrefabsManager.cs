@@ -14,7 +14,7 @@ namespace Managers.Storage
 
         #region Methods
 
-        public AssetReference GetUiWindowsReferenceById(string id) => _uiPrefabsStorage.GetPrefabReference(id);
+        public AssetReference GetUiAssetReferenceById(string id) => _uiPrefabsStorage.GetPrefabReference(id);
         
         #endregion
     }
