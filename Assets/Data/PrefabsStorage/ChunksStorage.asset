@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70c04fd91eb574199964839a70221ef5, type: 3}
+  m_Name: ChunksStorage
+  m_EditorClassIdentifier: 
+  _prefabs:
+  - id: Chunk_01
+    assetReference:
+      m_AssetGUID: 97e0979784be9456881dbf060fb1c643
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: Chunk_02
+    assetReference:
+      m_AssetGUID: 1ca970cf51ed146efa0e4dd7b2fdad1c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: Chunk_03
+    assetReference:
+      m_AssetGUID: 3f383388c11de4015860385991527a66
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: Chunk_04
+    assetReference:
+      m_AssetGUID: 645ce864fa6d94381a976b5ba656f186
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: Chunk_05
+    assetReference:
+      m_AssetGUID: cb6fa4f911b934aa9a00a4d7538cc570
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: Chunk_06
+    assetReference:
+      m_AssetGUID: 41fb8b4d0ef9a4defb5a8bbc65b9dfc9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0

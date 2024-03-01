@@ -27,6 +27,41 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 562bd4c88d4e84628911a21d203ad294
+    m_Address: UiInput.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97e0979784be9456881dbf060fb1c643
+    m_Address: Assets/Prefabs/Chunks/Chunk_01.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ca970cf51ed146efa0e4dd7b2fdad1c
+    m_Address: Assets/Prefabs/Chunks/Chunk_02.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f383388c11de4015860385991527a66
+    m_Address: Assets/Prefabs/Chunks/Chunk_03.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 645ce864fa6d94381a976b5ba656f186
+    m_Address: Assets/Prefabs/Chunks/Chunk_04.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb6fa4f911b934aa9a00a4d7538cc570
+    m_Address: Assets/Prefabs/Chunks/Chunk_06.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41fb8b4d0ef9a4defb5a8bbc65b9dfc9
+    m_Address: Assets/Prefabs/Chunks/Chunk_07.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0d428181b352a4accb4b8880df6d1ba0, type: 2}
   m_SchemaSet:

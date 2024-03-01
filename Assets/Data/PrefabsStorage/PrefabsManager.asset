@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PrefabsManager
   m_EditorClassIdentifier: 
   _uiPrefabsStorage: {fileID: 11400000, guid: 390763dbba3c2425d845b8790ca73d75, type: 2}
+  _chunksStorage: {fileID: 11400000, guid: bf1a6061b9aa04084a357a79603550b9, type: 2}

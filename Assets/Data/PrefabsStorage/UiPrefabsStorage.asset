@@ -25,3 +25,9 @@ MonoBehaviour:
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+  - id: UiInput
+    assetReference:
+      m_AssetGUID: 562bd4c88d4e84628911a21d203ad294
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
