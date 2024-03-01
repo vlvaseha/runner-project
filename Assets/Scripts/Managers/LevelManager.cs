@@ -18,12 +18,6 @@ namespace Managers
         private UiWindows _uiWindows;
 
         #endregion
-
-        #region Properties
-
-
-        #endregion
-        
         
         #region Class lifecycle
 
@@ -39,14 +33,28 @@ namespace Managers
         void IInitializable.Initialize()
         {
             _uiWindows = CreateUiWindows();
+            _uiWindows.Initialize(_assetInstanceCreator, _prefabsManager, _diContainer);
 
             _currentLevel = CreateLevel();
             _currentLevel.Initialize();
+
+            var gameplayWindowPresenter = UiServiceContainer.Instance.GameplayWindowPresenter;
+            gameplayWindowPresenter.OnPointerDown.AddListener(UiPointerDownHandler);
+            
+            _uiWindows.Open<GameplayWindow>(gameplayWindowPresenter);
         }
         
         #endregion
 
         #region Methods
+
+        private void UiPointerDownHandler()
+        {
+            var gameplayWindowPresenter = UiServiceContainer.Instance.GameplayWindowPresenter;
+            gameplayWindowPresenter.OnPointerDown.RemoveListener(_currentLevel.StartLevel);
+
+            _currentLevel.StartLevel();
+        }
 
         private BaseLevel CreateLevel()
         {

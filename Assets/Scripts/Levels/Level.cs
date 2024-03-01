@@ -29,7 +29,7 @@ namespace Levels
 
         public override void StartLevel()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public override void CompleteLevel()

@@ -1,5 +1,4 @@
 using GameUi;
-using UnityEngine;
 using Zenject;
 
 namespace Installers
@@ -8,7 +7,8 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            
+            Container.Bind<UiServiceContainer>().AsSingle().NonLazy();
+            Container.Bind<GameplayWindowPresenter>().AsSingle().WithArguments(WindowType.GameplayWindow);
         }
     }
 }

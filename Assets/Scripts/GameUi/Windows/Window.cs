@@ -15,9 +15,9 @@ namespace GameUi
 
         public void Initialize(WindowArguments arguments) => Arguments = arguments;
 
-        public abstract void Show(bool immediately = false, Action onComplete = null);
+        public abstract void Show();
         
-        public abstract void Hide(bool immediately = false, Action onComplete = null);
+        public abstract void Hide();
 
         #endregion
     }

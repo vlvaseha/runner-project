@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af5b59cd715c1400b8e8ee7c60f5fcd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiWindowsPrefab: {fileID: 3876837523533021485, guid: aa7e8216aaf18407dbf2d315daaea7c4, type: 3}
 --- !u!1 &775903306
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6475bb2ac110742fba44e6158823127a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _prefabsManager: {fileID: 11400000, guid: 99d5a4c7bed2e4b45845e4d74b99e126, type: 2}
 --- !u!1 &1148924738
 GameObject:
   m_ObjectHideFlags: 0
