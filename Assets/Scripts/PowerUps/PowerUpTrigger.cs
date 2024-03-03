@@ -3,8 +3,14 @@ using UnityEngine;
 
 namespace CollectableBonus
 {
-    public class BonusTrigger : MonoBehaviour
+    public class PowerUpTrigger : MonoBehaviour
     {
+        #region Fields
+
+        private bool _isTriggered;
+
+        #endregion
+        
         #region Events
 
         public event Action OnPlayerTriggerd;
@@ -15,9 +21,15 @@ namespace CollectableBonus
 
         private void OnTriggerEnter(Collider other)
         {
+            if (_isTriggered)
+            {
+                return;
+            }
+            
             if (other.CompareTag("Player"))
             {
                 OnPlayerTriggerd?.Invoke();
+                _isTriggered = true;
             }
         }
 

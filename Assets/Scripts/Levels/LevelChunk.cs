@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CollectableBonus;
+using PowerUps;
 using UnityEngine;
 
 namespace Levels
@@ -8,7 +9,7 @@ namespace Levels
     {
         #region Fields
         
-        private readonly List<BaseCollectableBonus> _chunkBonuses = new List<BaseCollectableBonus>();
+        private readonly List<BaseCollectablePowerUp> _chunkPowerUps = new List<BaseCollectablePowerUp>();
 
         [SerializeField] private Transform _characterInitialTransform;
         [Space]
@@ -27,13 +28,13 @@ namespace Levels
 
         #region Methods
 
-        public void ClearBonuses()
+        public void ClearPowerUps()
         {
-            _chunkBonuses.ForEach(b => Destroy(b.gameObject));
-            _chunkBonuses.Clear();
+            _chunkPowerUps.ForEach(b => Destroy(b.gameObject));
+            _chunkPowerUps.Clear();
         }
 
-        public void AddBonus(BaseCollectableBonus bonus) => _chunkBonuses.Add(bonus);
+        public void AddBonus(BaseCollectablePowerUp powerUp) => _chunkPowerUps.Add(powerUp);
 
         #endregion
     }

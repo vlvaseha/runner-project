@@ -68,17 +68,17 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cc6b77fd86ca044ed97b7329cf21f249
-    m_Address: Assets/Prefabs/CollectableBonus/FlyingBonus.prefab
+    m_Address: FlyingPowerUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fb9f454ddc4a4409b9ab859bd69869e9
-    m_Address: Assets/Prefabs/CollectableBonus/SlowdownBonus.prefab
+    m_Address: SlowdownPowerUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 16dc93fbc1f0f445e83569cf41faa98d
-    m_Address: Assets/Prefabs/CollectableBonus/SprintRunningBonus.prefab
+    m_Address: SprintRunningPowerUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec8eb81dcc0f54215a4dfe7fa0b0ebf8, type: 3}
-  m_Name: CollectableBonusStorage
+  m_Name: PowerUpsStorage
   m_EditorClassIdentifier: 
   _prefabs:
-  - id: FlyingBonus
+  - id: FlyingPowerUp
     assetReference:
       m_AssetGUID: cc6b77fd86ca044ed97b7329cf21f249
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - id: SlowdownBonus
+  - id: SlowdownPowerUp
     assetReference:
       m_AssetGUID: fb9f454ddc4a4409b9ab859bd69869e9
       m_SubObjectName: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-  - id: SprintRunningBonus
+  - id: SprintRunningPowerUp
     assetReference:
       m_AssetGUID: 16dc93fbc1f0f445e83569cf41faa98d
       m_SubObjectName: 

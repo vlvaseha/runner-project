@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2980817635571667456, guid: 0d6e49cb0d19440d0a3ebf0ec0f41e1c, type: 3}
       propertyPath: m_Name
-      value: FlyingBonus
+      value: FlyingPowerUp
       objectReference: {fileID: 0}
     - target: {fileID: 3453652005134439411, guid: 0d6e49cb0d19440d0a3ebf0ec0f41e1c, type: 3}
       propertyPath: m_CastShadows
@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cebc64cb7c19049bebbc0cfba96af4d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bonusTrigger: {fileID: 1602283758826392333}
+  _powerUpDuration: 10
+  _powerUpTrigger: {fileID: 1602283758826392333}
   _idleAnimationGO: {fileID: 590022182518469845}
   _disappearAnimationGO: {fileID: 4739025571699519134}

@@ -1,15 +1,25 @@
+using CollectableBonus;
 using UnityEngine;
+using Zenject;
 
-namespace CollectableBonus
+namespace PowerUps
 {
-    public class BaseCollectableBonus : MonoBehaviour
+    public class BaseCollectablePowerUp : MonoBehaviour
     {
         #region Fields
 
-        [SerializeField] private BonusTrigger _bonusTrigger;
+        [SerializeField] private float _powerUpDuration = 10f;
+        [SerializeField] private PowerUpTrigger _powerUpTrigger;
         [Space]
         [SerializeField] private GameObject _idleAnimationGO;
         [SerializeField] private GameObject _disappearAnimationGO;
+
+        #endregion
+
+        #region Properties
+
+        protected float PowerUpDuration => _powerUpDuration;
+        [Inject] protected SignalBus SignalBus { get; }
 
         #endregion
     
@@ -17,12 +27,12 @@ namespace CollectableBonus
 
         private void Start()
         {
-            _bonusTrigger.OnPlayerTriggerd += PlayerTriggeredHandler;
+            _powerUpTrigger.OnPlayerTriggerd += PlayerTriggeredHandler;
         }
 
         private void OnDestroy()
         {
-            _bonusTrigger.OnPlayerTriggerd -= PlayerTriggeredHandler;
+            _powerUpTrigger.OnPlayerTriggerd -= PlayerTriggeredHandler;
         }
 
         #endregion

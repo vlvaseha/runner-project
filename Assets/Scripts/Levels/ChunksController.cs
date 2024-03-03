@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using CollectableBonus;
 using Managers;
 using Managers.Storage;
+using PowerUps;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -11,9 +12,9 @@ namespace Levels
     {
         #region Fields
 
-        private const float RebuildChunksShift = 13f;
+        private const float RebuildChunksShift = 16f;
 
-        private readonly List<string> _bonusesId;
+        private readonly List<string> _powerUpIds;
         private readonly Queue<LevelChunk> _chunks;
         private readonly AssetInstanceCreator _assetInstanceCreator;
         private readonly PrefabsManager _prefabsManager;
@@ -33,11 +34,11 @@ namespace Levels
             _prefabsManager = prefabsManager;
             _chunksRoot = chunksRoot;
             _chunks = new Queue<LevelChunk>();
-            _bonusesId = new List<string>
+            _powerUpIds = new List<string>
             {
-                CollectableBonusId.FlyingBonus,
-                CollectableBonusId.SlowdownBonus,
-                CollectableBonusId.SprintRunningBonus
+                CollectablePowerUpId.FlyingPowerUp,
+                CollectablePowerUpId.SlowdownPowerUp,
+                CollectablePowerUpId.SprintRunningPowerUp
             };
         }
         
@@ -81,7 +82,7 @@ namespace Levels
 
             if (createBonuses)
             {
-                CreateChunkBonuses(chunk);
+                CreateChunkPowerUp(chunk);
             }
         }
 
@@ -93,20 +94,20 @@ namespace Levels
             return levelChunk;
         }
 
-        private void CreateChunkBonuses(LevelChunk chunk)
+        private void CreateChunkPowerUp(LevelChunk chunk)
         {
-            chunk.ClearBonuses();
+            chunk.ClearPowerUps();
             
-            string bonusId = _bonusesId.Random();
-            AssetReference bonusAssetReference = _prefabsManager.GetCollectableBonusAssetReferenceById(bonusId);
-            BaseCollectableBonus bonus =
-                _assetInstanceCreator.Instantiate<BaseCollectableBonus>(bonusAssetReference, chunk.transform);
+            string powerUpId = _powerUpIds.Random();
+            AssetReference powerUpAssetReferenceById = _prefabsManager.GetPowerUpAssetReferenceById(powerUpId);
+            BaseCollectablePowerUp powerUp =
+                _assetInstanceCreator.Instantiate<BaseCollectablePowerUp>(powerUpAssetReferenceById, chunk.transform);
             
             float zPosition = Random.Range(1f, chunk.Length);
             int xPosition = Random.Range(-2, 3);
             Vector3 localPosition = new Vector3(xPosition, 0f, -zPosition);
-            bonus.transform.localPosition = localPosition;
-            chunk.AddBonus(bonus);
+            powerUp.transform.localPosition = localPosition;
+            chunk.AddBonus(powerUp);
         }
         
         #endregion

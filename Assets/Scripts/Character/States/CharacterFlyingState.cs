@@ -1,5 +1,6 @@
 using System;
 using DG.Tweening;
+using UniRx;
 using UnityEngine;
 
 namespace Character.States
@@ -12,20 +13,24 @@ namespace Character.States
         private const float JumpDownDuration = .15f;
 
         private readonly int _flyingAnimatorTriggerHash;
+        private readonly float _stateDuration;
 
         private Tweener _lerpFlyingOOffset;
         private Vector3 _flyingOffset;
         private bool _isForwardMovementAvailable;
         private float _flyingInterpolateProgress;
 
+        private IDisposable _exitStateDelayed;
+
         #endregion
 
         #region Class lifecycle
 
         public CharacterFlyingState(CharacterController characterController, CharacterView characterView,
-            CharacterStateMachine characterStateMachine) : base(characterController, characterView, characterStateMachine)
+            CharacterStateMachine characterStateMachine, float stateDuration) : base(characterController, characterView, characterStateMachine)
         {
             _flyingAnimatorTriggerHash = Animator.StringToHash("Flying");
+            _stateDuration = stateDuration;
         }
         
         #endregion
@@ -36,6 +41,11 @@ namespace Character.States
         {
             _isForwardMovementAvailable = false;
             CharacterView.Animator.SetTrigger(_flyingAnimatorTriggerHash);
+            
+            _exitStateDelayed = Observable
+                .Timer(TimeSpan.FromSeconds(_stateDuration))
+                .Subscribe(_ => ExitStateDelayed())
+                .AddTo(CharacterView);
         }
 
         public override void Exit(Action onComplete = null)
@@ -102,6 +112,11 @@ namespace Character.States
                     _flyingOffset = Vector3.Lerp(from, to, value);
                 })
                 .OnComplete(() => onComplete?.Invoke());
+        }
+
+        private void ExitStateDelayed()
+        {
+            CharacterStateMachine.ChangeState(new CharacterMovementState(CharacterController, CharacterView, CharacterStateMachine));
         }
 
         #endregion

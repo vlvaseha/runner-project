@@ -210,7 +210,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1682215773862750545}
   m_Layer: 0
-  m_Name: Bonus
+  m_Name: CollectablePowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

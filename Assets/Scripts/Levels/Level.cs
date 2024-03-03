@@ -8,6 +8,7 @@ using Managers.Storage;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Zenject;
 using CharacterController = Character.CharacterController;
 
 namespace Levels
@@ -34,6 +35,7 @@ namespace Levels
         private readonly GameplayWindowPresenter _gameplayWindowPresenter;
         private readonly PrefabsManager _prefabsManager;
         private readonly CameraController _cameraController;
+        private readonly SignalBus _signalBus;
 
         private CharacterController _characterController;
         private ChunksController _chunksController;
@@ -48,12 +50,14 @@ namespace Levels
         public Level(AssetInstanceCreator assetInstanceCreator,
             GameplayWindowPresenter gameplayWindowPresenter,
             PrefabsManager prefabsManager,
-            CameraController cameraController)
+            CameraController cameraController,
+            SignalBus signalBus)
         {
             _assetInstanceCreator = assetInstanceCreator;
             _gameplayWindowPresenter = gameplayWindowPresenter;
             _prefabsManager = prefabsManager;
             _cameraController = cameraController;
+            _signalBus = signalBus;
         }
 
         #endregion
@@ -87,6 +91,7 @@ namespace Levels
         {
             _gameplayWindowPresenter.StartButtonClicked.RemoveListener(StartLevel);
             _frameUpdate?.Dispose();
+            _characterController?.Dispose();
         }
 
         private void LogicUpdate()
@@ -103,7 +108,7 @@ namespace Levels
             CharacterView characterView = _assetInstanceCreator.Instantiate<CharacterView>(assetReference, _levelRoot);
 
             characterView.transform.position = chunk.CharacterInitialTransform.position;
-            return new CharacterController(characterView);
+            return new CharacterController(characterView, _signalBus);
         }
     }
 }
