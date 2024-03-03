@@ -11,23 +11,11 @@ namespace GameUi
         private const float DragTreshold = 2f;
         private const float MaxInputDelta = 50f;
 
-        [SerializeField] private VariableJoystick _variableJoystick;
-
         #endregion
 
         #region Properties
 
-        public Vector2 Input { get; private set; } = Vector2.zero;
-
-        #endregion
-
-        #region Unity lifecycle
-
-        private void Awake()
-        {
-            _variableJoystick.SetMode(JoystickType.Floating);
-            _variableJoystick.AxisOptions = AxisOptions.Horizontal;
-        }
+        public Vector2 Input { get; private set; }
 
         #endregion
 
