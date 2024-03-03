@@ -67,6 +67,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc6b77fd86ca044ed97b7329cf21f249
+    m_Address: Assets/Prefabs/CollectableBonus/FlyingBonus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb9f454ddc4a4409b9ab859bd69869e9
+    m_Address: Assets/Prefabs/CollectableBonus/SlowdownBonus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16dc93fbc1f0f445e83569cf41faa98d
+    m_Address: Assets/Prefabs/CollectableBonus/SprintRunningBonus.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0d428181b352a4accb4b8880df6d1ba0, type: 2}
   m_SchemaSet:

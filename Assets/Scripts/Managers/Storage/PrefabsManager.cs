@@ -11,6 +11,7 @@ namespace Managers.Storage
         [SerializeField] private UiPrefabsStorage _uiPrefabsStorage;
         [SerializeField] private ChunksStorage _chunksStorage;
         [SerializeField] private CharactersStorage _charactersStorage;
+        [SerializeField] private CollectableBonusStorage _collectableBonusStorage;
 
         #endregion
 
@@ -21,7 +22,10 @@ namespace Managers.Storage
         public AssetReference GetLevelChunkAssetReferenceById(string id) => _chunksStorage.GetPrefabReference(id);
         
         public AssetReference GetCharacterAssetReferenceById(string id) => _charactersStorage.GetPrefabReference(id);
-        
+
+        public AssetReference GetCollectableBonusAssetReferenceById(string id) =>
+            _collectableBonusStorage.GetPrefabReference(id);
+
         #endregion
     }
 }

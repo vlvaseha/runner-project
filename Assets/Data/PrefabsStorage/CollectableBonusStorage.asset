@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8eb81dcc0f54215a4dfe7fa0b0ebf8, type: 3}
+  m_Name: CollectableBonusStorage
+  m_EditorClassIdentifier: 
+  _prefabs:
+  - id: FlyingBonus
+    assetReference:
+      m_AssetGUID: cc6b77fd86ca044ed97b7329cf21f249
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: SlowdownBonus
+    assetReference:
+      m_AssetGUID: fb9f454ddc4a4409b9ab859bd69869e9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+  - id: SprintRunningBonus
+    assetReference:
+      m_AssetGUID: 16dc93fbc1f0f445e83569cf41faa98d
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
