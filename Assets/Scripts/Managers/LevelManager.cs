@@ -1,6 +1,7 @@
 using GameUi;
 using Levels;
 using Managers.Storage;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Zenject;
 
@@ -40,6 +41,8 @@ namespace Managers
 
             GameplayWindowPresenter gameplayWindowPresenter = UiServiceContainer.Instance.GameplayWindowPresenter;
             _uiWindows.Open<GameplayWindow>(gameplayWindowPresenter);
+
+            Application.targetFrameRate = 60;
         }
         
         #endregion
