@@ -10,7 +10,7 @@ namespace Levels
     {
         #region Fields
 
-        private const float RebuildChunksShift = 10f;
+        private const float RebuildChunksShift = 13f;
 
         private readonly Queue<LevelChunk> _chunks;
         private readonly AssetInstanceCreator _assetInstanceCreator;

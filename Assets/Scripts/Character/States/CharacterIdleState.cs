@@ -12,8 +12,8 @@ namespace Character.States
         
         #region Class lifecycle
 
-        public CharacterIdleState(CharacterController characterController, CharacterView characterView) 
-            : base(characterController, characterView) { }
+        public CharacterIdleState(CharacterController characterController, CharacterView characterView,
+            CharacterStateMachine characterStateMachine) : base(characterController, characterView, characterStateMachine) { }
         
         #endregion
 

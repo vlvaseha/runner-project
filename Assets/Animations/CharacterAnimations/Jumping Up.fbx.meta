@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 323302f1da6b8434fb6de955e767f17d
+guid: 6e03d5bf8191d43d5989f70ac7656d4d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -37,26 +37,33 @@ ModelImporter:
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 1
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.6886281
+        functionName: JumpingStarted
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -528,15 +535,15 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: Fast Run(Clone)
+    - name: Jumping Up(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: -0.11901225, y: -0.114785835, z: -0.047175568, w: 0.9851065}
+      rotation: {x: 0.07925291, y: -0.36762488, z: -0.031244738, w: 0.92606413}
       scale: {x: 1, y: 1, z: 1}
     - name: Bip001
-      parentName: Fast Run(Clone)
-      position: {x: -0.0023117953, y: 0.7611563, z: -0.0147243785}
-      rotation: {x: -0.36465874, y: 0.44087306, z: 0.6535734, w: 0.49547634}
+      parentName: Jumping Up(Clone)
+      position: {x: 0.0008031276, y: 0.80824727, z: -0.0059919357}
+      rotation: {x: -0.30052635, y: 0.657849, z: 0.63990855, w: 0.2596837}
       scale: {x: 1, y: 1, z: 1}
     - name: Bip001 Footsteps
       parentName: Bip001
@@ -545,7 +552,7 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
     - name: Bip001 Pelvis
       parentName: Bip001
-      position: {x: -0.16079962, y: 0.092467114, z: 0.23054646}
+      position: {x: 0.015829112, y: 0, z: 0.14669487}
       rotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
       scale: {x: 1, y: 1, z: 1}
     - name: Bip001 Spine

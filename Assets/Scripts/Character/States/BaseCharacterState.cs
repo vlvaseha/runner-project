@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Character.States
@@ -8,15 +9,18 @@ namespace Character.States
 
         protected CharacterController CharacterController { get; }
         protected CharacterView CharacterView { get; }
+        protected CharacterStateMachine CharacterStateMachine { get; }
         
         #endregion
 
         #region Class lifecycle
 
-        public BaseCharacterState(CharacterController characterController, CharacterView characterView)
+        protected BaseCharacterState(CharacterController characterController, CharacterView characterView, 
+            CharacterStateMachine characterStateMachine)
         {
             CharacterController = characterController;
             CharacterView = characterView;
+            CharacterStateMachine = characterStateMachine;
         }
         
         #endregion
@@ -25,12 +29,14 @@ namespace Character.States
 
         public virtual void Enter() { }
 
-        public virtual void Exit() { }
+        public virtual void Exit(Action onComplete = null) { onComplete?.Invoke();}
 
         public virtual void UpdateInput(Vector2 input) { }
 
         public virtual void LogicUpdate() { }
-        
+
+        public virtual void AnimatorEventTriggered(string eventName) { }
+
         #endregion
     }
 }
