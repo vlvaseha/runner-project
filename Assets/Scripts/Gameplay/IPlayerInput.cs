@@ -1,7 +1,9 @@
+using UnityEngine;
+
 namespace Gameplay
 {
     public interface IPlayerInput 
     {
-        public float HorizontalInput { get; }
+        public Vector2 Input { get; }
     }
 }

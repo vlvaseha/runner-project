@@ -22,11 +22,6 @@ namespace GameUi
 
         #region Methods
 
-        public override void Initialize(GameplayWindow windowView)
-        {
-            base.Initialize(windowView);
-        }
-
         public void StartButtonPressed()
         {
             StartButtonClicked?.Invoke();

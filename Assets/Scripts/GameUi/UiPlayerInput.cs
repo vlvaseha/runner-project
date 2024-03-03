@@ -1,11 +1,15 @@
 using Gameplay;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace GameUi
 {
-    public class UiPlayerInput : MonoBehaviour, IPlayerInput
+    public class UiPlayerInput : MonoBehaviour, IPlayerInput, IDragHandler, IEndDragHandler
     {
         #region Fields
+
+        private const float DragTreshold = 2f;
+        private const float MaxInputDelta = 50f;
 
         [SerializeField] private VariableJoystick _variableJoystick;
 
@@ -13,7 +17,7 @@ namespace GameUi
 
         #region Properties
 
-        public float HorizontalInput { get; private set; }
+        public Vector2 Input { get; private set; } = Vector2.zero;
 
         #endregion
 
@@ -25,11 +29,30 @@ namespace GameUi
             _variableJoystick.AxisOptions = AxisOptions.Horizontal;
         }
 
-        private void Update()
+        #endregion
+
+        #region Methods
+
+        public void OnDrag(PointerEventData eventData)
         {
-            HorizontalInput = _variableJoystick.Horizontal;
+            if (eventData.delta.magnitude < DragTreshold)
+            {
+                Input = Vector2.zero;
+            }
+            else
+            {
+                float clampedHorizontalInput = Mathf.Clamp(eventData.delta.x, -MaxInputDelta, MaxInputDelta);
+                float clampedVerticalInput = Mathf.Clamp(eventData.delta.y, -MaxInputDelta, MaxInputDelta);
+                
+                Input = new Vector2(clampedHorizontalInput, clampedVerticalInput) / MaxInputDelta;
+            }
         }
 
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            Input = Vector2.zero;
+        }
+        
         #endregion
     }
 }

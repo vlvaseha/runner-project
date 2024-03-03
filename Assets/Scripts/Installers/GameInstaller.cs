@@ -10,6 +10,7 @@ namespace Installers
         #region Fields
 
         [SerializeField] private PrefabsManager _prefabsManager;
+        [SerializeField] private CameraController _cameraControllerPrefab;
 
         #endregion
 
@@ -20,6 +21,7 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle();
             Container.BindInterfacesAndSelfTo<AssetInstanceCreator>().AsSingle();
             Container.Bind<PrefabsManager>().FromInstance(_prefabsManager).AsSingle();
+            Container.Bind<CameraController>().FromComponentInNewPrefab(_cameraControllerPrefab).AsSingle();
         }
         
         #endregion
