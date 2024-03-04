@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Character.States
 {
+    /// <summary>
+    /// Состояние отвечающее за замедленное передвижение персонажа
+    /// </summary>
     public class CharacterSlowedRunState : CharacterMovementState
     {
         #region Fields

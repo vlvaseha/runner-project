@@ -1,10 +1,12 @@
 using System.Collections.Generic;
-using CollectableBonus;
 using PowerUps;
 using UnityEngine;
 
 namespace Levels
 {
+    /// <summary>
+    /// Чанк на уровне, содержит точку в которой можно заспавнить персонажа, а так же поверапы
+    /// </summary>
     public class LevelChunk : MonoBehaviour
     {
         #region Fields

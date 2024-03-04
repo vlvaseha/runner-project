@@ -1,5 +1,8 @@
 namespace Character
 {
+    /// <summary>
+    /// Класс предназначен для хранения данных персонажа
+    /// </summary>
     public class CharacterData 
     {
         public float ForwardMoveSpeed { get; }

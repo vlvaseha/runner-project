@@ -1,5 +1,8 @@
-namespace CollectableBonus
+namespace PowerUps
 {
+    /// <summary>
+    /// Класс хранит айдишники бонусов
+    /// </summary>
     public class CollectablePowerUpId
     {
         public const string FlyingPowerUp = "FlyingPowerUp";

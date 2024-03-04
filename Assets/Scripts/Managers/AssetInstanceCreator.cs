@@ -8,6 +8,9 @@ using Object = UnityEngine.Object;
 
 namespace Managers
 {
+    /// <summary>
+    /// Класс спавнящий объекты
+    /// </summary>
     public class AssetInstanceCreator : IDisposable
     {
         #region Fields

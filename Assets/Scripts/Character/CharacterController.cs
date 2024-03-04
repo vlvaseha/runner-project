@@ -6,6 +6,9 @@ using Zenject;
 
 namespace Character
 {
+    /// <summary>
+    /// Основной класс через который персонаж взаимодействует с игрой, получает инпут ивенты и тд
+    /// </summary>
     public class CharacterController
     {
         #region Fields

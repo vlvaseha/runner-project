@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Character
 {
+    /// <summary>
+    /// Класс предназначен для отслеживания ивентов анимаций
+    /// </summary>
     public class AnimatorEventsReceiver : MonoBehaviour
     {
         #region Events

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Character.States
 {
+    /// <summary>
+    /// Айдл состояние персонажа
+    /// </summary>
     public class CharacterIdleState : BaseCharacterState
     {
         #region Fields

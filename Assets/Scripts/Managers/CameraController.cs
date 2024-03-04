@@ -4,6 +4,9 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Managers
 {
+    /// <summary>
+    /// Класс камеры, содержит логику передвижения за таргетом
+    /// </summary>
     public class CameraController : MonoBehaviour
     {
         #region Fields

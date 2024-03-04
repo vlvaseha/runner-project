@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Character.States
 {
+    /// <summary>
+    /// Состояние в котором персонаж осуществляет полет
+    /// </summary>
     public class CharacterFlyingState : CharacterMovementState
     {
         #region Fields
@@ -50,6 +53,8 @@ namespace Character.States
 
         public override void Exit(Action onComplete = null)
         {
+            _exitStateDelayed?.Dispose();
+            
             Vector3 flyingOffset = Vector3.up * CharacterController.Data.FlyingHeight;
             LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, JumpDownDuration, () =>
             {

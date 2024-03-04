@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Character.States
 {
+    /// <summary>
+    /// Класс осузествляющий управление состояниями персонажа
+    /// </summary>
     public class CharacterStateMachine
     {
         #region Fields

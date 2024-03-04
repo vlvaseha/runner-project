@@ -7,6 +7,9 @@ using Zenject;
 
 namespace Managers
 {
+    /// <summary>
+    /// Класс содержащий логику спавна нужного уровня
+    /// </summary>
     public class LevelManager : IInitializable
     {
         #region Fields

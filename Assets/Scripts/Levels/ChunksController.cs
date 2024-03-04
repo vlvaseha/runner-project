@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CollectableBonus;
 using Managers;
 using Managers.Storage;
 using PowerUps;
@@ -8,6 +7,9 @@ using UnityEngine.AddressableAssets;
 
 namespace Levels
 {
+    /// <summary>
+    /// Класс спавнит чанки и перемещает их по мере движения персонажа
+    /// </summary>
     public class ChunksController
     {
         #region Fields

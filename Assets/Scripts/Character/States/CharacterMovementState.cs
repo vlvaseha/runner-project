@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace Character.States
 {
+    /// <summary>
+    /// Состояние отвечающее за дефолтное передвижение персонажа
+    /// </summary>
     public class CharacterMovementState : BaseCharacterState
     {
         #region Fields

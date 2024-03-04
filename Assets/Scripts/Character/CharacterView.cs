@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Character
 {
+    /// <summary>
+    /// Класс отвечающий за отображение персонажа и взаимодействие с компнонентами юнити
+    /// </summary>
     public class CharacterView : MonoBehaviour
     {
         #region Events

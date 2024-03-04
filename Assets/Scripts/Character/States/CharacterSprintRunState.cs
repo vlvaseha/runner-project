@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace Character.States
 {
+    
+    /// <summary>
+    /// Состояние отвечающее за ускоренное передвижение персонажа
+    /// </summary>
     public class CharacterSprintRunState : CharacterMovementState
     {
         #region Fields

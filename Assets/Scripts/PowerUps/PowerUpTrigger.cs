@@ -1,8 +1,11 @@
 using System;
 using UnityEngine;
 
-namespace CollectableBonus
+namespace PowerUps
 {
+    /// <summary>
+    /// Класс отслеживает какие объеты вошли в триггер, если персонаж игрока - вызывается ивент
+    /// </summary>
     public class PowerUpTrigger : MonoBehaviour
     {
         #region Fields
@@ -13,7 +16,7 @@ namespace CollectableBonus
         
         #region Events
 
-        public event Action OnPlayerTriggerd;
+        public event Action OnPlayerTriggered;
 
         #endregion
 
@@ -28,7 +31,7 @@ namespace CollectableBonus
             
             if (other.CompareTag("Player"))
             {
-                OnPlayerTriggerd?.Invoke();
+                OnPlayerTriggered?.Invoke();
                 _isTriggered = true;
             }
         }

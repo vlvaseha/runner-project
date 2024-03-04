@@ -3,6 +3,9 @@ using UnityEngine.AddressableAssets;
 
 namespace Managers.Storage
 {
+    /// <summary>
+    /// Класс - хранилище ассетов проекта
+    /// </summary>
     [CreateAssetMenu(fileName = nameof(PrefabsManager), menuName = "Game/Storage/" + nameof(PrefabsManager))]
     public class PrefabsManager : ScriptableObject
     {

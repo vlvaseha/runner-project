@@ -1,9 +1,11 @@
-using CollectableBonus;
 using UnityEngine;
 using Zenject;
 
 namespace PowerUps
 {
+    /// <summary>
+    /// Базовый класс объектов которые изменяеют поведение персонажа, содержит общие для них всех данные
+    /// </summary>
     public class BaseCollectablePowerUp : MonoBehaviour
     {
         #region Fields
@@ -27,12 +29,12 @@ namespace PowerUps
 
         private void Start()
         {
-            _powerUpTrigger.OnPlayerTriggerd += PlayerTriggeredHandler;
+            _powerUpTrigger.OnPlayerTriggered += PlayerTriggeredHandler;
         }
 
         private void OnDestroy()
         {
-            _powerUpTrigger.OnPlayerTriggerd -= PlayerTriggeredHandler;
+            _powerUpTrigger.OnPlayerTriggered -= PlayerTriggeredHandler;
         }
 
         #endregion

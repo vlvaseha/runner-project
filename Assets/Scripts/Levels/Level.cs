@@ -13,6 +13,10 @@ using CharacterController = Character.CharacterController;
 
 namespace Levels
 {
+    /// <summary>
+    /// Класс уровня, в классе создается уровень, инциализирует объекты которые создают уровень,
+    /// а так же содержит логику опеределяющую пройден/проигран уровень 
+    /// </summary>
     public class Level : BaseLevel
     {
         #region Fields

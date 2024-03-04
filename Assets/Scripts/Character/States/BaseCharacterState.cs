@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Character.States
 {
+    /// <summary>
+    /// Базовый класс для состояний персонажа
+    /// </summary>
     public class BaseCharacterState
     {
         #region Properties
