@@ -28,6 +28,8 @@ namespace GameUi
             UiWindows.OnWindowCloseStarted -= WindowCloseStartedHandler;
             UiWindows.OnWindowOpenStarted -= WindowOpenStartedHandler;
         }
+
+        public void CloseWindow() => UiWindows.CloseWindow(this);
         
         protected virtual void OnOpenStarted() { }
         

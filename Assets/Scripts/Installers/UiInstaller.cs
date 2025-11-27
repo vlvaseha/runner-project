@@ -7,8 +7,8 @@ namespace Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<UiServiceContainer>().AsSingle().NonLazy();
-            Container.Bind<GameplayWindowPresenter>().AsSingle().WithArguments(WindowType.GameplayWindow);
+            Container.Bind<StartGameWindowPresenter>().AsSingle();
+            Container.Bind<GameplayWindowPresenter>().AsSingle();
         }
     }
 }

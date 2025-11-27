@@ -13,27 +13,10 @@ MonoBehaviour:
   m_Name: Default Local Group
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
-  m_Data:
-    m_SerializedData: []
   m_GUID: 64958bd80e6dd471daae33cab344f676
   m_SerializeEntries:
-  - m_GUID: aa7e8216aaf18407dbf2d315daaea7c4
-    m_Address: UiWindows.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fa751c3ce59ac4afab1c41de2740877b
-    m_Address: GameplayWindow.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 562bd4c88d4e84628911a21d203ad294
-    m_Address: UiInput.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 97e0979784be9456881dbf060fb1c643
-    m_Address: Assets/Prefabs/Chunks/Chunk_01.prefab
+  - m_GUID: 16dc93fbc1f0f445e83569cf41faa98d
+    m_Address: SprintRunningPowerUp.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -47,18 +30,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41fb8b4d0ef9a4defb5a8bbc65b9dfc9
+    m_Address: Assets/Prefabs/Chunks/Chunk_07.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 562bd4c88d4e84628911a21d203ad294
+    m_Address: UiInput.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 645ce864fa6d94381a976b5ba656f186
     m_Address: Assets/Prefabs/Chunks/Chunk_04.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cb6fa4f911b934aa9a00a4d7538cc570
-    m_Address: Assets/Prefabs/Chunks/Chunk_06.prefab
+  - m_GUID: 97e0979784be9456881dbf060fb1c643
+    m_Address: Assets/Prefabs/Chunks/Chunk_01.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 41fb8b4d0ef9a4defb5a8bbc65b9dfc9
-    m_Address: Assets/Prefabs/Chunks/Chunk_07.prefab
+  - m_GUID: aa7e8216aaf18407dbf2d315daaea7c4
+    m_Address: UiWindows.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -67,8 +60,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb6fa4f911b934aa9a00a4d7538cc570
+    m_Address: Assets/Prefabs/Chunks/Chunk_06.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbf50dc86a3334d1899d3a2e9d2def07
+    m_Address: StartWindow.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cc6b77fd86ca044ed97b7329cf21f249
     m_Address: FlyingPowerUp.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa751c3ce59ac4afab1c41de2740877b
+    m_Address: GameplayWindow.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -77,14 +85,9 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 16dc93fbc1f0f445e83569cf41faa98d
-    m_Address: SprintRunningPowerUp.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0d428181b352a4accb4b8880df6d1ba0, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: d9cfbcfae5a1c4e189edde08131f1f72, type: 2}
     - {fileID: 11400000, guid: 35789b4095cc24cea94987efc904c5d5, type: 2}
+    - {fileID: 11400000, guid: d9cfbcfae5a1c4e189edde08131f1f72, type: 2}

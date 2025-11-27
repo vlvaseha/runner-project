@@ -12,9 +12,7 @@ namespace Levels
     /// </summary>
     public class ChunksController
     {
-        #region Fields
-
-        private const float RebuildChunksShift = 16f;
+        private const float RebuildChunksShift = 32f;
 
         private readonly List<string> _powerUpIds;
         private readonly Queue<LevelChunk> _chunks;
@@ -23,10 +21,6 @@ namespace Levels
         private readonly Transform _chunksRoot;
 
         private int _sequenceLength;
-        
-        #endregion
-
-        #region Class lifecycle
 
         public ChunksController(AssetInstanceCreator assetInstanceCreator,
             PrefabsManager prefabsManager,
@@ -44,10 +38,6 @@ namespace Levels
             };
         }
         
-        #endregion
-
-        #region Methods
-
         public void Create(List<string> chunkIds)
         {
             int number = 0;
@@ -111,7 +101,5 @@ namespace Levels
             powerUp.transform.localPosition = localPosition;
             chunk.AddBonus(powerUp);
         }
-        
-        #endregion
     }
 }

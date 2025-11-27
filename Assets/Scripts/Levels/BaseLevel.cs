@@ -1,12 +1,7 @@
-using GameUi;
-using UnityEngine;
-
 namespace Levels
 {
     public abstract class BaseLevel
     {
-        #region Methods
-
         public abstract void Initialize();
 
         public abstract void StartLevel();
@@ -16,7 +11,5 @@ namespace Levels
         public abstract void FailLevel();
         
         public abstract void DestroyLevel();
-        
-        #endregion
     }
 }

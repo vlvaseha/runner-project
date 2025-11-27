@@ -6,20 +6,10 @@ namespace GameUi
 {
     public class UiPlayerInput : MonoBehaviour, IPlayerInput, IDragHandler, IEndDragHandler
     {
-        #region Fields
-
         private const float DragTreshold = 2f;
         private const float MaxInputDelta = 50f;
 
-        #endregion
-
-        #region Properties
-
         public Vector2 Input { get; private set; }
-
-        #endregion
-
-        #region Methods
 
         public void OnDrag(PointerEventData eventData)
         {
@@ -40,7 +30,5 @@ namespace GameUi
         {
             Input = Vector2.zero;
         }
-        
-        #endregion
     }
 }

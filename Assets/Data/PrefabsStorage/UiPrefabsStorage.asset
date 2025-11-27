@@ -12,22 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29913ea131bb74c13b3bb732e62917e3, type: 3}
   m_Name: UiPrefabsStorage
   m_EditorClassIdentifier: 
-  _prefabs:
+  prefabs:
   - id: UiWindows
     assetReference:
       m_AssetGUID: aa7e8216aaf18407dbf2d315daaea7c4
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
   - id: GameplayWindow
     assetReference:
       m_AssetGUID: fa751c3ce59ac4afab1c41de2740877b
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0
-  - id: UiInput
+  - id: StartGameWindow
     assetReference:
-      m_AssetGUID: 562bd4c88d4e84628911a21d203ad294
+      m_AssetGUID: cbf50dc86a3334d1899d3a2e9d2def07
       m_SubObjectName: 
       m_SubObjectType: 
+      m_SubObjectGUID: 
       m_EditorAssetChanged: 0

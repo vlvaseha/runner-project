@@ -11,24 +11,14 @@ namespace Character
     /// </summary>
     public class CharacterController
     {
-        #region Fields
-
         private readonly CharacterView _characterView;
         private readonly CharacterStateMachine _characterStateMachine;
         private readonly SignalBus _signalBus;
         
         private IPlayerInput _playerInput;
-        
-        #endregion
-
-        #region Properties
 
         public CharacterData Data { get; }
         public float MaxSideMoveOffset { get; private set; }
-
-        #endregion
-
-        #region Class lifecycle
 
         public CharacterController(CharacterView characterView, SignalBus signalBus)
         {
@@ -61,10 +51,6 @@ namespace Character
             _signalBus.Unsubscribe<SlowdownPowerUpCollectedSignal>(SlowDownPowerUpCollected);
         }
 
-        #endregion
-
-        #region Methods
-
         public void LogicUpdate()
         {
             _characterStateMachine.UpdateInput(_playerInput.Input);
@@ -85,7 +71,5 @@ namespace Character
         
         private void SlowDownPowerUpCollected(SlowdownPowerUpCollectedSignal args) => 
             _characterStateMachine.ChangeState(new CharacterSlowedRunState(this, _characterView, _characterStateMachine, args.SlowdownSpeed, args.PowerUpDuration));
-
-        #endregion
     }
 }

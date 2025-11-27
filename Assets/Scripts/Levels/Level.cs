@@ -19,8 +19,40 @@ namespace Levels
     /// </summary>
     public class Level : BaseLevel
     {
+        private const string CharacterPrefabId = "DefaultCharacter";
+        
         private readonly List<string> _chunksSequence = new List<string>
         {
+            "Chunk_01",
+            "Chunk_01",
+            "Chunk_01",
+            "Chunk_05",
+            "Chunk_06",
+            "Chunk_05",
+            "Chunk_02",
+            "Chunk_03",
+            "Chunk_04",
+            "Chunk_03",
+            "Chunk_01",
+            "Chunk_01",
+            "Chunk_01",
+            "Chunk_05",
+            "Chunk_06",
+            "Chunk_05",
+            "Chunk_02",
+            "Chunk_03",
+            "Chunk_04",
+            "Chunk_03",
+            "Chunk_01",
+            "Chunk_01",
+            "Chunk_01",
+            "Chunk_05",
+            "Chunk_06",
+            "Chunk_05",
+            "Chunk_02",
+            "Chunk_03",
+            "Chunk_04",
+            "Chunk_03",
             "Chunk_01",
             "Chunk_01",
             "Chunk_01",
@@ -45,17 +77,14 @@ namespace Levels
         private IPlayerInput _playerInput;
         private IDisposable _frameUpdate;
 
-        public Level(AssetInstanceCreator assetInstanceCreator,
-            GameplayWindowPresenter gameplayWindowPresenter,
-            PrefabsManager prefabsManager,
-            CameraController cameraController,
-            SignalBus signalBus)
+        public Level(AssetInstanceCreator assetInstanceCreator, PrefabsManager prefabsManager,
+            CameraController cameraController, SignalBus signalBus, GameplayWindowPresenter gameplayWindowPresenter)
         {
             _assetInstanceCreator = assetInstanceCreator;
-            _gameplayWindowPresenter = gameplayWindowPresenter;
             _prefabsManager = prefabsManager;
             _cameraController = cameraController;
             _signalBus = signalBus;
+            _gameplayWindowPresenter = gameplayWindowPresenter;
         }
         
         public override void Initialize()
@@ -63,7 +92,6 @@ namespace Levels
             _levelRoot = new GameObject(GetType().Name).transform;
             _chunksController = new ChunksController(_assetInstanceCreator, _prefabsManager, _levelRoot);
             
-            _gameplayWindowPresenter.OnStartButtonClicked += StartLevel;
             _chunksController.Create(_chunksSequence);
             _characterController = CreateCharacterController();
             _cameraController.CalculateCameraOffset(_characterController.GetViewPosition());
@@ -71,7 +99,11 @@ namespace Levels
 
         public override void StartLevel()
         {
-            _characterController.Initialize(_gameplayWindowPresenter.GetPlayerInput());
+            if (_gameplayWindowPresenter.TryGetInputPanel(out IPlayerInput inputPanel))
+            {
+                _characterController.Initialize(inputPanel);
+            }
+            
             _frameUpdate = Observable.EveryUpdate().Subscribe(_ => LogicUpdate());
         }
 
@@ -81,7 +113,6 @@ namespace Levels
 
         public override void DestroyLevel()
         {
-            _gameplayWindowPresenter.OnStartButtonClicked -= StartLevel;
             _frameUpdate?.Dispose();
             _characterController?.Dispose();
         }
@@ -95,7 +126,7 @@ namespace Levels
 
         private CharacterController CreateCharacterController()
         {
-            AssetReference assetReference = _prefabsManager.GetCharacterAssetReferenceById("DefaultCharacter");
+            AssetReference assetReference = _prefabsManager.GetCharacterAssetReferenceById(CharacterPrefabId);
             LevelChunk chunk = _chunksController.GetFirstChunk();
             CharacterView characterView = _assetInstanceCreator.Instantiate<CharacterView>(assetReference, _levelRoot);
 
