@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Blue
-  m_Shader: {fileID: 4800000, guid: 9dbde1d64fd774916a97703982064fba, type: 3}
+  m_Shader: {fileID: 4800000, guid: fc104e0fc7afa444786314291ae78512, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 93b1287b4a087f84c95c72f49ec94e83, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -72,6 +72,8 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _ShadeMax: 0.269
+    - _ShadeMin: -0.154
     - _Shininess: 0.078125
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -81,4 +83,10 @@ Material:
     m_Colors:
     - _Color: {r: 0.27450976, g: 0.8916694, b: 0.8980392, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighliteColor: {r: 0, g: 0, b: 0, a: 0}
+    - _ShadeColor: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TintColor: {r: 0.34015664, g: 0.60319364, b: 0.7924528, a: 1}
+    - _VariationColor: {r: 0.2971698, g: 0.6636648, b: 1, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
