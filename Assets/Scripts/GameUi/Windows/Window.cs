@@ -1,24 +1,72 @@
-using System;
 using UnityEngine;
 
 namespace GameUi
 {
     public abstract class Window : MonoBehaviour
     {
-        #region Properties
-
+        public WindowAnimation OpenWindowAnimation { get; protected set; }
+        public WindowAnimation CloseWindowAnimation { get; protected set; }
+        
         protected WindowArguments Arguments { get; private set; }
+        protected UiWindows UiWindows { get; private set; }
 
-        #endregion
+        public void Initialize(WindowArguments arguments, UiWindows uiWindowsController)
+        {
+            Arguments = arguments;
+            UiWindows = uiWindowsController;
+            
+            UiWindows.OnWindowCloseCompleted += WindowCloseCompletedHandler;
+            UiWindows.OnWindowOpenCompleted += WindowOpenCompletedHandler;
+            UiWindows.OnWindowCloseStarted += WindowCloseStartedHandler;
+            UiWindows.OnWindowOpenStarted += WindowOpenStartedHandler;
+        }
+
+        public void Dispose()
+        {
+            UiWindows.OnWindowCloseCompleted -= WindowCloseCompletedHandler;
+            UiWindows.OnWindowOpenCompleted -= WindowOpenCompletedHandler;
+            UiWindows.OnWindowCloseStarted -= WindowCloseStartedHandler;
+            UiWindows.OnWindowOpenStarted -= WindowOpenStartedHandler;
+        }
         
-        #region Methods
-
-        public void Initialize(WindowArguments arguments) => Arguments = arguments;
-
-        public abstract void Show();
+        protected virtual void OnOpenStarted() { }
         
-        public abstract void Hide();
+        protected virtual void OnOpenCompleted() { }
+        
+        protected virtual void OnCloseStarted() { }
 
-        #endregion
+        protected virtual void OnCloseCompleted() { }
+        
+        private void WindowOpenStartedHandler(Window window)
+        {
+            if (ReferenceEquals(window, this))
+            {
+                OnOpenStarted();
+            }
+        }
+
+        private void WindowOpenCompletedHandler(Window window)
+        {
+            if (ReferenceEquals(window, this))
+            {
+                OnOpenCompleted();
+            }
+        }
+
+        private void WindowCloseStartedHandler(Window window)
+        {
+            if (ReferenceEquals(window, this))
+            {
+                OnCloseStarted();
+            }
+        }
+
+        private void WindowCloseCompletedHandler(Window window)
+        {
+            if (ReferenceEquals(window, this))
+            {
+                OnCloseCompleted();
+            }
+        }
     }
 }

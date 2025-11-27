@@ -1,30 +1,25 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace GameUi
 {
     public class UiStartPanel : MonoBehaviour
     {
-        #region Fields
-
-        [SerializeField] private Button _button;
+        public event Action OnStartGameButtonClicked;
         
-        #endregion
+        [SerializeField] private Button button;
 
-        #region Properties
-
-        public UnityEvent StartButtonClicked => _button.onClick;
-        
-        #endregion
-
-        #region Unity lifecycle
-
-        private void Awake()
+        private void Start()
         {
-            StartButtonClicked.AddListener(() => gameObject.SetActive(false));
+            button.onClick.AddListener(StartButtonClickedHandler);
         }
 
-        #endregion
+        private void OnDestroy()
+        {
+            button.onClick.RemoveListener(StartButtonClickedHandler);
+        }
+
+        private void StartButtonClickedHandler() => OnStartGameButtonClicked?.Invoke();
     }
 }

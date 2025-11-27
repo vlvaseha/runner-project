@@ -19,8 +19,6 @@ namespace Levels
     /// </summary>
     public class Level : BaseLevel
     {
-        #region Fields
-
         private readonly List<string> _chunksSequence = new List<string>
         {
             "Chunk_01",
@@ -47,10 +45,6 @@ namespace Levels
         private IPlayerInput _playerInput;
         private IDisposable _frameUpdate;
 
-        #endregion
-
-        #region Class lifecycle
-
         public Level(AssetInstanceCreator assetInstanceCreator,
             GameplayWindowPresenter gameplayWindowPresenter,
             PrefabsManager prefabsManager,
@@ -63,15 +57,13 @@ namespace Levels
             _cameraController = cameraController;
             _signalBus = signalBus;
         }
-
-        #endregion
         
         public override void Initialize()
         {
             _levelRoot = new GameObject(GetType().Name).transform;
             _chunksController = new ChunksController(_assetInstanceCreator, _prefabsManager, _levelRoot);
             
-            _gameplayWindowPresenter.StartButtonClicked.AddListener(StartLevel);
+            _gameplayWindowPresenter.OnStartButtonClicked += StartLevel;
             _chunksController.Create(_chunksSequence);
             _characterController = CreateCharacterController();
             _cameraController.CalculateCameraOffset(_characterController.GetViewPosition());
@@ -83,17 +75,13 @@ namespace Levels
             _frameUpdate = Observable.EveryUpdate().Subscribe(_ => LogicUpdate());
         }
 
-        public override void CompleteLevel()
-        {
-        }
+        public override void CompleteLevel() { }
 
-        public override void FailLevel()
-        {
-        }
+        public override void FailLevel() { }
 
         public override void DestroyLevel()
         {
-            _gameplayWindowPresenter.StartButtonClicked.RemoveListener(StartLevel);
+            _gameplayWindowPresenter.OnStartButtonClicked -= StartLevel;
             _frameUpdate?.Dispose();
             _characterController?.Dispose();
         }

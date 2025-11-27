@@ -1,36 +1,32 @@
+using System;
 using Gameplay;
-using UnityEngine.Events;
+using Managers;
+using Managers.Storage;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace GameUi
 {
     public class GameplayWindowPresenter : BaseWindowPresenter<GameplayWindow>
     {
-        #region Events
-
-        public UnityEvent StartButtonClicked { get; }
+        public event Action OnStartButtonClicked;
         
-        #endregion
+        private readonly PrefabsManager _prefabsManager;
+        private readonly AssetInstanceCreator _assetInstanceCreator;
         
-        #region Class lifecycle
-
-        public GameplayWindowPresenter(WindowType type) : base(type)
+        public GameplayWindowPresenter(WindowType type, PrefabsManager prefabsManager, AssetInstanceCreator assetInstanceCreator) : base(type)
         {
-            StartButtonClicked = new UnityEvent();
-        }
-        
-        #endregion
-
-        #region Methods
-
-        public void StartButtonPressed()
-        {
-            StartButtonClicked?.Invoke();
+            _prefabsManager = prefabsManager;
+            _assetInstanceCreator = assetInstanceCreator;
         }
 
-        public IPlayerInput GetPlayerInput() => WindowView.CreateUiPlayerInput();
+        public void StartButtonPressed() => OnStartButtonClicked?.Invoke();
 
-        #endregion
-        
-        
+        public IPlayerInput GetPlayerInput()
+        {
+            Transform inputRoot = IsViewInitialized ? WindowView.transform : null;
+            AssetReference assetReference = _prefabsManager.GetUiAssetReferenceById(UiPrefabsIds.UiInput);
+            return _assetInstanceCreator.Instantiate<UiPlayerInput>(assetReference, inputRoot);
+        }
     }
 }

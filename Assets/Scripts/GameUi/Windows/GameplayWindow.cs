@@ -1,54 +1,29 @@
-using Gameplay;
-using Managers;
-using Managers.Storage;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using Zenject;
 
 namespace GameUi
 {
     public class GameplayWindow : Window
     {
-        #region Fields
+        [SerializeField] private UiStartPanel startPanel;
 
-        [SerializeField] private UiStartPanel _startPanel;
-
-        [Inject] private AssetInstanceCreator _assetInstanceCreator;
-        [Inject] private PrefabsManager _prefabsManager;
-        
         private GameplayWindowPresenter _gameplayWindowPresenter;
-        private IPlayerInput _playerInput;
 
-        #endregion
-        
-        #region Methods
-
-        public override void Show()
+        protected override void OnOpenStarted()
         {
-            _gameplayWindowPresenter = Arguments as GameplayWindowPresenter;
+            _gameplayWindowPresenter = (GameplayWindowPresenter) Arguments;
             _gameplayWindowPresenter.Initialize(this);
-            
-            _startPanel.StartButtonClicked.AddListener(StartButtonClickedHandler);
+
+            startPanel.OnStartGameButtonClicked += StartButtonClickedHandler;
         }
 
-        public override void Hide()
+        protected override void OnCloseStarted()
         {
-            _startPanel.StartButtonClicked.RemoveListener(StartButtonClickedHandler);
-        }
-
-        public IPlayerInput CreateUiPlayerInput()
-        {
-            AssetReference assetReference = _prefabsManager.GetUiAssetReferenceById(UiPrefabsIds.UiInput);
-
-            _playerInput = _assetInstanceCreator.Instantiate<UiPlayerInput>(assetReference, transform);
-            return _playerInput;
+            startPanel.OnStartGameButtonClicked -= StartButtonClickedHandler;
         }
 
         private void StartButtonClickedHandler()
         {
             _gameplayWindowPresenter.StartButtonPressed();
         }
-        
-        #endregion
     }
 }
