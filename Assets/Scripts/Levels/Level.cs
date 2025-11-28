@@ -101,7 +101,7 @@ namespace Levels
         {
             if (_gameplayWindowPresenter.TryGetInputPanel(out IPlayerInput inputPanel))
             {
-                _characterController.Initialize(inputPanel);
+                _characterController.OnLevelStarted(inputPanel);
             }
             
             _frameUpdate = Observable.EveryUpdate().Subscribe(_ => LogicUpdate());
@@ -131,7 +131,10 @@ namespace Levels
             CharacterView characterView = _assetInstanceCreator.Instantiate<CharacterView>(assetReference, _levelRoot);
 
             characterView.transform.position = chunk.CharacterInitialTransform.position;
-            return new CharacterController(characterView, _signalBus);
+            CharacterController characterController = new CharacterController(characterView, _signalBus);
+            characterController.Initialize();
+            
+            return characterController;
         }
     }
 }

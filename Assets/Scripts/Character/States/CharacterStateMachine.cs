@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Character.States
@@ -8,54 +7,40 @@ namespace Character.States
     /// </summary>
     public class CharacterStateMachine
     {
-        #region Fields
-
-        private readonly Queue<BaseCharacterState> _statesQueue = new Queue<BaseCharacterState>();
-        private BaseCharacterState _currentState;
-        
-        #endregion
-
-        #region Class lifecycle
-
-        public void Initialize(BaseCharacterState startState)
-        {
-            _currentState = startState;
-            _currentState.Enter();
-        }
+        private BaseState _currentState;
 
         public void Dispose()
         {
             _currentState?.Exit();
         }
 
-        #endregion
-
-        #region Methods
-
-        public void ChangeState(BaseCharacterState newState)
+        public void ChangeState(BaseState newState)
         {
-            if (_statesQueue.Count == 0)
-            {
-                _statesQueue.Enqueue(newState);
-                _currentState.Exit(() =>
-                {
-                    _currentState = _statesQueue.Dequeue();
-                    _currentState.Enter();
-                });
-            }
-            else
-            {
-                _statesQueue.Dequeue();
-                _statesQueue.Enqueue(newState);
-            }
+            _currentState?.Exit();
+            _currentState = newState;
+            _currentState.Enter();
         }
 
-        public void UpdateInput(Vector2 input) => _currentState.UpdateInput(input);
+        public void UpdateInput(Vector2 input) => _currentState?.UpdateInput(input);
         
-        public void LogicUpdate() => _currentState.LogicUpdate();
+        public void LogicUpdate(float dt)
+        {
+            if (_currentState is null)
+            {
+                return;
+            }
+        
+            BaseTransition transition = _currentState.GetTransition();
 
-        public void AnimatorEventTriggered(string eventName) => _currentState.AnimatorEventTriggered(eventName);
+            if (transition is not null)
+            {
+                transition.Apply(this);
+                return;
+            }
+        
+            _currentState.Tick(dt);
+        }
 
-        #endregion
+        public void AnimatorEventTriggered(string eventName) => _currentState?.AnimatorEventTriggered(eventName);
     }
 }

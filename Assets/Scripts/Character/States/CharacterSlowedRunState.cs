@@ -1,5 +1,4 @@
 using System;
-using UniRx;
 using UnityEngine;
 
 namespace Character.States
@@ -9,55 +8,35 @@ namespace Character.States
     /// </summary>
     public class CharacterSlowedRunState : CharacterMovementState
     {
-        #region Fields
-
         private const string AnimatorRunningStateName = "Running"; 
         private const float RunningAnimationSpeed = .5f;
         
         private readonly int _runningTriggerHash;
         private readonly int _runningSpeedAnimationHash;
         private readonly float _slowedRunSpeed;
-        private readonly float _stateDuration;
 
         private IDisposable _exitStateDelayed;
 
-        #endregion
-
-        #region Class lifecycle
-
-        public CharacterSlowedRunState(CharacterController characterController, CharacterView characterView,
-            CharacterStateMachine characterStateMachine, float slowedRunSpeed, float stateDuration)
-            : base(characterController, characterView, characterStateMachine)
+        public CharacterSlowedRunState(CharacterController characterController, CharacterView characterView, float slowedRunSpeed)
+            : base(characterController, characterView)
         {
             _slowedRunSpeed = slowedRunSpeed;
-            _stateDuration = stateDuration;
-
             _runningTriggerHash = Animator.StringToHash("Running");
             _runningSpeedAnimationHash = Animator.StringToHash("RunningSpeed");
         }
-        
-        #endregion
 
-        #region Methods
-
-        public override void Enter()
+        protected override void OnEnter()
         {
             SetCharacterAnimation();
             CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, RunningAnimationSpeed);
-            
-            _exitStateDelayed = Observable
-                .Timer(TimeSpan.FromSeconds(_stateDuration))
-                .Subscribe(_ => ExitStateDelayed())
-                .AddTo(CharacterView);
         }
 
-        public override void Exit(Action onComplete = null)
+        protected override void OnExit()
         {
             _exitStateDelayed?.Dispose();
-            onComplete?.Invoke();
         }
 
-        public override void LogicUpdate()
+        protected override void OnTick(float dt)
         {
             ProcessForwardMovement(_slowedRunSpeed);
             ProcessSideMovement();
@@ -72,12 +51,5 @@ namespace Character.States
                 CharacterView.Animator.SetTrigger(_runningTriggerHash);
             }
         }
-
-        private void ExitStateDelayed()
-        {
-            CharacterStateMachine.ChangeState(new CharacterMovementState(CharacterController, CharacterView, CharacterStateMachine));
-        }
-
-        #endregion
     }
 }

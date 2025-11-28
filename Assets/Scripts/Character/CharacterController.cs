@@ -14,6 +14,7 @@ namespace Character
         private readonly CharacterView _characterView;
         private readonly CharacterStateMachine _characterStateMachine;
         private readonly SignalBus _signalBus;
+        private readonly CharacterStateData _characterStateData;
         
         private IPlayerInput _playerInput;
 
@@ -25,51 +26,70 @@ namespace Character
             _characterView = characterView;
             _signalBus = signalBus;
             _characterStateMachine = new CharacterStateMachine();
+            _characterStateData = new CharacterStateData(characterView);
             
             Data = new CharacterData();
             MaxSideMoveOffset = 2.5f;
         }
 
-        public void Initialize(IPlayerInput playerInput)
+        public void Initialize()
         {
-            _playerInput = playerInput;
-            _characterStateMachine.Initialize(new CharacterMovementState(this, _characterView, _characterStateMachine));
             _characterView.OnAnimatorEventReceived += AnimatorEventReceivedHandler;
             
-            _signalBus.Subscribe<FlyingPowerUpCollectedSignal>(FlyingPowerUpCollected);
-            _signalBus.Subscribe<SprintRunningPowerUpCollectedSignal>(SprintRunningPowerUpCollected);
-            _signalBus.Subscribe<SlowdownPowerUpCollectedSignal>(SlowDownPowerUpCollected);
+            _signalBus.Subscribe<FlyingPowerUpCollectedSignal>(_characterStateData.OnPowerUpCollected);
+            _signalBus.Subscribe<SprintRunningPowerUpCollectedSignal>(_characterStateData.OnPowerUpCollected);
+            _signalBus.Subscribe<SlowdownPowerUpCollectedSignal>(_characterStateData.OnPowerUpCollected);
+
+            InitializeStateMachine();
         }
 
         public void Dispose()
         {
             _characterStateMachine.Dispose();
+            _characterStateData.Dispose();
             _characterView.OnAnimatorEventReceived -= AnimatorEventReceivedHandler;
             
-            _signalBus.Unsubscribe<FlyingPowerUpCollectedSignal>(FlyingPowerUpCollected);
-            _signalBus.Unsubscribe<SprintRunningPowerUpCollectedSignal>(SprintRunningPowerUpCollected);
-            _signalBus.Unsubscribe<SlowdownPowerUpCollectedSignal>(SlowDownPowerUpCollected);
+            _signalBus.Unsubscribe<FlyingPowerUpCollectedSignal>(_characterStateData.OnPowerUpCollected);
+            _signalBus.Unsubscribe<SprintRunningPowerUpCollectedSignal>(_characterStateData.OnPowerUpCollected);
+            _signalBus.Unsubscribe<SlowdownPowerUpCollectedSignal>(_characterStateData.OnPowerUpCollected);
+        }
+
+        public void OnLevelStarted(IPlayerInput playerInput)
+        {
+            _playerInput = playerInput;
+            _characterStateData.SetDefaultMovementState();
         }
 
         public void LogicUpdate()
         {
             _characterStateMachine.UpdateInput(_playerInput.Input);
-            _characterStateMachine.LogicUpdate();
+            _characterStateMachine.LogicUpdate(Time.deltaTime);
         }
 
         public Vector3 GetViewPosition() => _characterView.ViewRoot.position;
 
-        private void AnimatorEventReceivedHandler(string eventName) =>
-            _characterStateMachine.AnimatorEventTriggered(eventName);
+        private void InitializeStateMachine()
+        {
+            CharacterIdleState characterIdleState = new CharacterIdleState(this, _characterView);
+            CharacterMovementState movementState = new CharacterMovementState(this, _characterView);
+            CharacterFlyingState flyingState = new CharacterFlyingState(this, _characterView);
+            CharacterSlowedRunState characterSlowedRunState = new CharacterSlowedRunState(this, _characterView, 3f);
+            CharacterSprintRunState characterSprintRunState = new CharacterSprintRunState(this, _characterView, 12f);
 
-        private void FlyingPowerUpCollected(FlyingPowerUpCollectedSignal args) =>
-            _characterStateMachine.ChangeState(new CharacterFlyingState(this, _characterView, _characterStateMachine, args.PowerUpDuration));
+            Transition<CharacterMovementState> toMovementTransition = new Transition<CharacterMovementState>(movementState, _characterStateData.IsDefaultMovementActive);
+            Transition<CharacterMovementState> toFlyingTransition = new Transition<CharacterMovementState>(flyingState, _characterStateData.IsFlyingMovementActive);
+            Transition<CharacterMovementState> toCharacterSlowedRunTransition = new Transition<CharacterMovementState>(characterSlowedRunState, _characterStateData.IsSlowdownMovementActive);
+            Transition<CharacterMovementState> toCharacterSprintTransition = new Transition<CharacterMovementState>(characterSprintRunState, _characterStateData.IsSprintRunningActive);
+            
+            characterIdleState.SetTransition(toMovementTransition);
+            movementState.SetTransition(toFlyingTransition, toCharacterSlowedRunTransition, toCharacterSprintTransition);
+            flyingState.SetTransition(toMovementTransition, toCharacterSlowedRunTransition, toCharacterSprintTransition);
+            characterSlowedRunState.SetTransition(toMovementTransition, toFlyingTransition, toCharacterSprintTransition);
+            characterSprintRunState.SetTransition(toMovementTransition, toCharacterSlowedRunTransition, toFlyingTransition);
+            
+            _characterStateMachine.ChangeState(characterIdleState);
+        }
 
-        
-        private void SprintRunningPowerUpCollected(SprintRunningPowerUpCollectedSignal args) => 
-            _characterStateMachine.ChangeState(new CharacterSprintRunState(this, _characterView, _characterStateMachine, args.RunningSpeed, args.PowerUpDuration));
-        
-        private void SlowDownPowerUpCollected(SlowdownPowerUpCollectedSignal args) => 
-            _characterStateMachine.ChangeState(new CharacterSlowedRunState(this, _characterView, _characterStateMachine, args.SlowdownSpeed, args.PowerUpDuration));
+        private void AnimatorEventReceivedHandler(string eventName) => _characterStateMachine.AnimatorEventTriggered(eventName);
     }
 }

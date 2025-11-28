@@ -9,26 +9,16 @@ namespace Levels
     /// </summary>
     public class LevelChunk : MonoBehaviour
     {
-        #region Fields
-        
         private readonly List<BaseCollectablePowerUp> _chunkPowerUps = new List<BaseCollectablePowerUp>();
 
-        [SerializeField] private Transform _characterInitialTransform;
+        [SerializeField] private Transform characterInitialTransform;
         [Space]
-        [SerializeField] private int _length = 16;
-        [SerializeField] private float _width = 5.8f;
+        [SerializeField] private int length = 16;
+        [SerializeField] private float width = 5.8f;
 
-        #endregion
-
-        #region Properties
-
-        public Transform CharacterInitialTransform => _characterInitialTransform;
-        public int Length => _length;
-        public float Width => _width;
-
-        #endregion
-
-        #region Methods
+        public Transform CharacterInitialTransform => characterInitialTransform;
+        public int Length => length;
+        public float Width => width;
 
         public void ClearPowerUps()
         {
@@ -37,7 +27,5 @@ namespace Levels
         }
 
         public void AddBonus(BaseCollectablePowerUp powerUp) => _chunkPowerUps.Add(powerUp);
-
-        #endregion
     }
 }

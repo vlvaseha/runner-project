@@ -5,10 +5,8 @@ namespace Character.States
     /// <summary>
     /// Состояние отвечающее за дефолтное передвижение персонажа
     /// </summary>
-    public class CharacterMovementState : BaseCharacterState
+    public class CharacterMovementState : BaseCharacterState<CharacterMovementState>
     {
-        #region Fields
-        
         protected Vector2 Input { get; private set; }
         
         private const string AnimatorRunningStateName = "Running"; 
@@ -16,35 +14,26 @@ namespace Character.States
         
         private readonly int _runningTriggerHash;
         private readonly int _runningSpeedAnimationHash;
-            
-        #endregion
 
-        #region Class lifecycle
-
-        public CharacterMovementState(CharacterController characterController, CharacterView characterView,
-            CharacterStateMachine characterStateMachine) : base(characterController, characterView,
-            characterStateMachine)
+        public CharacterMovementState(CharacterController characterController, CharacterView characterView)
+            : base(characterController, characterView)
         {
             _runningTriggerHash = Animator.StringToHash("Running");
             _runningSpeedAnimationHash = Animator.StringToHash("RunningSpeed");
         }
         
-        #endregion
-
-        #region Methods
-
-        public override void Enter()
+        protected override void OnEnter()
         {
             SetCharacterAnimation();
             CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, RunningAnimationSpeed);
         }
 
-        public override void UpdateInput(Vector2 input)
+        protected override void OnInputUpdated(Vector2 input)
         {
             Input = input;
         }
 
-        public override void LogicUpdate()
+        protected override void OnTick(float deltaTime)
         {
             ProcessForwardMovement(CharacterController.Data.ForwardMoveSpeed);
             ProcessSideMovement();
@@ -71,7 +60,7 @@ namespace Character.States
             return nextMoveForwardPosition;
         }
 
-        protected Vector3 GetSidePosition()
+        private Vector3 GetSidePosition()
         {
             float sideOffset = CharacterController.MaxSideMoveOffset;
 
@@ -100,7 +89,5 @@ namespace Character.States
                 CharacterView.Animator.SetTrigger(_runningTriggerHash);
             }
         }
-
-        #endregion
     }
 }

@@ -77,9 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e35633cc0b82442488ae78570ffa1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _viewRoot: {fileID: 5730836772087771987}
-  _characterAnimator: {fileID: 603596491960303926}
-  _animatorEventsReceiver: {fileID: 678772297357837534}
+  viewRoot: {fileID: 5730836772087771987}
+  characterAnimator: {fileID: 603596491960303926}
+  animatorEventsReceiver: {fileID: 678772297357837534}
 --- !u!1 &8329389176232925681
 GameObject:
   m_ObjectHideFlags: 0

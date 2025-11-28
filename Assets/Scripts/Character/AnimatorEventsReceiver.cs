@@ -8,15 +8,8 @@ namespace Character
     /// </summary>
     public class AnimatorEventsReceiver : MonoBehaviour
     {
-        #region Events
-
         public event Action<string> OnAnimatorEventTriggered;
 
-        #endregion
-
-        #region Animator events handlers
-
-        
         private void FlyingAnimationStarted()
         {
             OnAnimatorEventTriggered?.Invoke(CharacterAnimatorEvents.FlyingAnimationStarted);
@@ -26,7 +19,5 @@ namespace Character
         {
             OnAnimatorEventTriggered?.Invoke(CharacterAnimatorEvents.JumpingStarted);
         }
-        
-        #endregion
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using DG.Tweening;
-using UniRx;
 using UnityEngine;
 
 namespace Character.States
@@ -10,13 +9,10 @@ namespace Character.States
     /// </summary>
     public class CharacterFlyingState : CharacterMovementState
     {
-        #region Fields
-
         private const float JumpUpDuration = .3f;
         private const float JumpDownDuration = .15f;
 
         private readonly int _flyingAnimatorTriggerHash;
-        private readonly float _stateDuration;
 
         private Tweener _lerpFlyingOOffset;
         private Vector3 _flyingOffset;
@@ -25,45 +21,27 @@ namespace Character.States
 
         private IDisposable _exitStateDelayed;
 
-        #endregion
-
-        #region Class lifecycle
-
-        public CharacterFlyingState(CharacterController characterController, CharacterView characterView,
-            CharacterStateMachine characterStateMachine, float stateDuration) : base(characterController, characterView, characterStateMachine)
+        public CharacterFlyingState(CharacterController characterController, CharacterView characterView)
+            : base(characterController, characterView)
         {
             _flyingAnimatorTriggerHash = Animator.StringToHash("Flying");
-            _stateDuration = stateDuration;
         }
-        
-        #endregion
 
-        #region Methods
-
-        public override void Enter()
+        protected override void OnEnter()
         {
             _isForwardMovementAvailable = false;
             CharacterView.Animator.SetTrigger(_flyingAnimatorTriggerHash);
-            
-            _exitStateDelayed = Observable
-                .Timer(TimeSpan.FromSeconds(_stateDuration))
-                .Subscribe(_ => ExitStateDelayed())
-                .AddTo(CharacterView);
         }
 
-        public override void Exit(Action onComplete = null)
+        protected override void OnExit()
         {
             _exitStateDelayed?.Dispose();
             
             Vector3 flyingOffset = Vector3.up * CharacterController.Data.FlyingHeight;
-            LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, JumpDownDuration, () =>
-            {
-                onComplete?.Invoke();
-            });
-
+            LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, JumpDownDuration);
         }
 
-        public override void LogicUpdate()
+        protected override void OnTick(float dt)
         {
             Vector3 characterPosition = CharacterView.transform.position;
             characterPosition.y = 0f;
@@ -79,7 +57,7 @@ namespace Character.States
             ProcessSideMovement();
         }
 
-        public override void AnimatorEventTriggered(string eventName)
+        protected override void OnAnimatorEventTriggered(string eventName)
         {
             switch (eventName)
             {
@@ -118,12 +96,5 @@ namespace Character.States
                 })
                 .OnComplete(() => onComplete?.Invoke());
         }
-
-        private void ExitStateDelayed()
-        {
-            CharacterStateMachine.ChangeState(new CharacterMovementState(CharacterController, CharacterView, CharacterStateMachine));
-        }
-
-        #endregion
     }
 }

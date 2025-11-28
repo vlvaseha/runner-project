@@ -8,48 +8,28 @@ namespace Character
     /// </summary>
     public class CharacterView : MonoBehaviour
     {
-        #region Events
-
         public event Action<string> OnAnimatorEventReceived;
-
-        #endregion
         
-        #region Fields
+        [SerializeField] private Transform viewRoot;
+        [SerializeField] private Animator characterAnimator;
+        [SerializeField] private AnimatorEventsReceiver animatorEventsReceiver;
 
-        [SerializeField] private Transform _viewRoot;
-        [SerializeField] private Animator _characterAnimator;
-        [SerializeField] private AnimatorEventsReceiver _animatorEventsReceiver;
-
-        #endregion
-
-        #region Properties
-
-        public Animator Animator => _characterAnimator;
-        public Transform ViewRoot => _viewRoot;
-
-        #endregion
-
-        #region Unity lifecycle
+        public Animator Animator => characterAnimator;
+        public Transform ViewRoot => viewRoot;
 
         private void Start()
         {
-            _animatorEventsReceiver.OnAnimatorEventTriggered += AnimatorEventReceivedHandler;
+            animatorEventsReceiver.OnAnimatorEventTriggered += AnimatorEventReceivedHandler;
         }
 
         private void OnDestroy()
         {
-            _animatorEventsReceiver.OnAnimatorEventTriggered -= AnimatorEventReceivedHandler;
+            animatorEventsReceiver.OnAnimatorEventTriggered -= AnimatorEventReceivedHandler;
         }
-
-        #endregion
-
-        #region Methods
 
         private void AnimatorEventReceivedHandler(string eventName)
         {
             OnAnimatorEventReceived?.Invoke(eventName);
         }
-
-        #endregion
     }
 }
