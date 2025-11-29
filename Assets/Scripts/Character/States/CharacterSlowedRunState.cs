@@ -9,18 +9,15 @@ namespace Character.States
     public class CharacterSlowedRunState : CharacterMovementState
     {
         private const string AnimatorRunningStateName = "Running"; 
-        private const float RunningAnimationSpeed = .5f;
         
         private readonly int _runningTriggerHash;
         private readonly int _runningSpeedAnimationHash;
-        private readonly float _slowedRunSpeed;
 
         private IDisposable _exitStateDelayed;
 
-        public CharacterSlowedRunState(CharacterController characterController, CharacterView characterView, float slowedRunSpeed)
+        public CharacterSlowedRunState(CharacterController characterController, CharacterView characterView)
             : base(characterController, characterView)
         {
-            _slowedRunSpeed = slowedRunSpeed;
             _runningTriggerHash = Animator.StringToHash("Running");
             _runningSpeedAnimationHash = Animator.StringToHash("RunningSpeed");
         }
@@ -28,7 +25,7 @@ namespace Character.States
         protected override void OnEnter()
         {
             SetCharacterAnimation();
-            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, RunningAnimationSpeed);
+            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, CharacterController.CharacterConfig.runningAnimationSpeed);
         }
 
         protected override void OnExit()
@@ -38,7 +35,7 @@ namespace Character.States
 
         protected override void OnTick(float dt)
         {
-            ProcessForwardMovement(_slowedRunSpeed);
+            ProcessForwardMovement(CharacterController.CharacterConfig.slowRunningSpeed);
             ProcessSideMovement();
         }
 

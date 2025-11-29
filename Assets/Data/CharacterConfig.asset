@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fbe3c84e02af4494916c5edc67b5112, type: 3}
+  m_Name: CharacterConfig
+  m_EditorClassIdentifier: 
+  MaxSideMovementOffset: 2.5
+  SideMoveSpeed: 18
+  YRotationSpeed: 90
+  YRotationMaxAngle: 12
+  ZRotationSpeed: 18
+  ZRotationMaxAngle: 12
+  RunningAnimationMultiplier: 1.4
+  ForwardMoveSpeed: 8
+  FlyingForwardMoveSpeed: 13
+  FlyingHeight: 0.3
+  JumpUpDuration: 0.3
+  JumpDownDuration: 0.15
+  RunningAnimationSpeed: 0.5
+  SlowRunningSpeed: 3
+  SpringRunningSpeed: 12

@@ -11,14 +11,12 @@ namespace Character.States
         private const string AnimatorSprintStateName = "SprintRunning"; 
         
         private readonly int _sprintRunningTriggerHash;
-        private readonly float _sprintSpeed;
 
         private IDisposable _exitStateDelayed;
 
-        public CharacterSprintRunState(CharacterController characterController, CharacterView characterView,
-            float sprintSpeed) : base(characterController, characterView)
+        public CharacterSprintRunState(CharacterController characterController, CharacterView characterView)
+            : base(characterController, characterView)
         {
-            _sprintSpeed = sprintSpeed;
             _sprintRunningTriggerHash = Animator.StringToHash("SprintRunning");
         }
 
@@ -34,7 +32,7 @@ namespace Character.States
 
         protected override void OnTick(float dt)
         {
-            ProcessForwardMovement(_sprintSpeed);
+            ProcessForwardMovement(CharacterController.CharacterConfig.springRunningSpeed);
             ProcessSideMovement();
         }
 

@@ -70,6 +70,7 @@ namespace Levels
         private readonly PrefabsManager _prefabsManager;
         private readonly CameraController _cameraController;
         private readonly SignalBus _signalBus;
+        private readonly CharacterConfig _characterConfig;
 
         private CharacterController _characterController;
         private ChunksController _chunksController;
@@ -78,13 +79,15 @@ namespace Levels
         private IDisposable _frameUpdate;
 
         public Level(AssetInstanceCreator assetInstanceCreator, PrefabsManager prefabsManager,
-            CameraController cameraController, SignalBus signalBus, GameplayWindowPresenter gameplayWindowPresenter)
+            CameraController cameraController, SignalBus signalBus, GameplayWindowPresenter gameplayWindowPresenter, 
+            CharacterConfig characterConfig)
         {
             _assetInstanceCreator = assetInstanceCreator;
             _prefabsManager = prefabsManager;
             _cameraController = cameraController;
             _signalBus = signalBus;
             _gameplayWindowPresenter = gameplayWindowPresenter;
+            _characterConfig = characterConfig;
         }
         
         public override void Initialize()
@@ -131,7 +134,7 @@ namespace Levels
             CharacterView characterView = _assetInstanceCreator.Instantiate<CharacterView>(assetReference, _levelRoot);
 
             characterView.transform.position = chunk.CharacterInitialTransform.position;
-            CharacterController characterController = new CharacterController(characterView, _signalBus);
+            CharacterController characterController = new CharacterController(characterView, _signalBus, _characterConfig);
             characterController.Initialize();
             
             return characterController;

@@ -9,9 +9,6 @@ namespace Character.States
     /// </summary>
     public class CharacterFlyingState : CharacterMovementState
     {
-        private const float JumpUpDuration = .3f;
-        private const float JumpDownDuration = .15f;
-
         private readonly int _flyingAnimatorTriggerHash;
 
         private Tweener _lerpFlyingOOffset;
@@ -37,8 +34,8 @@ namespace Character.States
         {
             _exitStateDelayed?.Dispose();
             
-            Vector3 flyingOffset = Vector3.up * CharacterController.Data.FlyingHeight;
-            LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, JumpDownDuration);
+            Vector3 flyingOffset = Vector3.up * CharacterController.CharacterConfig.flyingHeight;
+            LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, CharacterController.CharacterConfig.jumpDownDuration);
         }
 
         protected override void OnTick(float dt)
@@ -48,7 +45,7 @@ namespace Character.States
             
             if (_isForwardMovementAvailable)
             {
-                characterPosition = GetPosition(CharacterController.Data.FlyingForwardMoveSpeed);
+                characterPosition = GetPosition(CharacterController.CharacterConfig.flyingForwardMoveSpeed);
             }
 
             characterPosition += _flyingOffset;
@@ -62,8 +59,8 @@ namespace Character.States
             switch (eventName)
             {
                 case CharacterAnimatorEvents.JumpingStarted:
-                    Vector3 flyingOffset = Vector3.up * CharacterController.Data.FlyingHeight;
-                    LerpFlyingOffset(Vector3.zero, flyingOffset, JumpUpDuration);
+                    Vector3 flyingOffset = Vector3.up * CharacterController.CharacterConfig.flyingHeight;
+                    LerpFlyingOffset(Vector3.zero, flyingOffset, CharacterController.CharacterConfig.jumpUpDuration);
                     break;
                 case CharacterAnimatorEvents.FlyingAnimationStarted:           
                     _isForwardMovementAvailable = true;
@@ -73,8 +70,8 @@ namespace Character.States
 
         protected override Quaternion GetRotation()
         {
-            float maxRotationAngle = CharacterController.Data.ZRotationMaxAngle;
-            float rotationSpeed = CharacterController.Data.ZRotationSpeed;
+            float maxRotationAngle = CharacterController.CharacterConfig.zRotationMaxAngle;
+            float rotationSpeed = CharacterController.CharacterConfig.zRotationSpeed;
             
             Quaternion targetRotation =
                 Quaternion.Euler(new Vector3(0f, 0f, -maxRotationAngle * Input.normalized.x));

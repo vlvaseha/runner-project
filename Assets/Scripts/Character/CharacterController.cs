@@ -18,18 +18,16 @@ namespace Character
         
         private IPlayerInput _playerInput;
 
-        public CharacterData Data { get; }
-        public float MaxSideMoveOffset { get; private set; }
+        public CharacterConfig CharacterConfig { get; }
 
-        public CharacterController(CharacterView characterView, SignalBus signalBus)
+        public CharacterController(CharacterView characterView, SignalBus signalBus, CharacterConfig characterConfig)
         {
             _characterView = characterView;
             _signalBus = signalBus;
             _characterStateMachine = new CharacterStateMachine();
             _characterStateData = new CharacterStateData(characterView);
             
-            Data = new CharacterData();
-            MaxSideMoveOffset = 2.5f;
+            CharacterConfig = characterConfig;
         }
 
         public void Initialize()
@@ -73,8 +71,8 @@ namespace Character
             CharacterIdleState characterIdleState = new CharacterIdleState(this, _characterView);
             CharacterMovementState movementState = new CharacterMovementState(this, _characterView);
             CharacterFlyingState flyingState = new CharacterFlyingState(this, _characterView);
-            CharacterSlowedRunState characterSlowedRunState = new CharacterSlowedRunState(this, _characterView, 3f);
-            CharacterSprintRunState characterSprintRunState = new CharacterSprintRunState(this, _characterView, 12f);
+            CharacterSlowedRunState characterSlowedRunState = new CharacterSlowedRunState(this, _characterView);
+            CharacterSprintRunState characterSprintRunState = new CharacterSprintRunState(this, _characterView);
 
             Transition<CharacterMovementState> toMovementTransition = new Transition<CharacterMovementState>(movementState, _characterStateData.IsDefaultMovementActive);
             Transition<CharacterMovementState> toFlyingTransition = new Transition<CharacterMovementState>(flyingState, _characterStateData.IsFlyingMovementActive);

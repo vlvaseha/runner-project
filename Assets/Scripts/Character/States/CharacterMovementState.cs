@@ -10,7 +10,6 @@ namespace Character.States
         protected Vector2 Input { get; private set; }
         
         private const string AnimatorRunningStateName = "Running"; 
-        private const float RunningAnimationSpeed = 1.4f;
         
         private readonly int _runningTriggerHash;
         private readonly int _runningSpeedAnimationHash;
@@ -25,7 +24,7 @@ namespace Character.States
         protected override void OnEnter()
         {
             SetCharacterAnimation();
-            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, RunningAnimationSpeed);
+            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, CharacterController.CharacterConfig.runningAnimationMultiplier);
         }
 
         protected override void OnInputUpdated(Vector2 input)
@@ -35,7 +34,7 @@ namespace Character.States
 
         protected override void OnTick(float deltaTime)
         {
-            ProcessForwardMovement(CharacterController.Data.ForwardMoveSpeed);
+            ProcessForwardMovement(CharacterController.CharacterConfig.forwardMoveSpeed);
             ProcessSideMovement();
         }
 
@@ -62,11 +61,11 @@ namespace Character.States
 
         private Vector3 GetSidePosition()
         {
-            float sideOffset = CharacterController.MaxSideMoveOffset;
+            float sideOffset = CharacterController.CharacterConfig.maxSideMovementOffset;
 
             Vector3 currentSidePosition = CharacterView.ViewRoot.localPosition;
             Vector3 nextMoveSidePosition =
-                currentSidePosition + Input.x * Vector3.right * CharacterController.Data.SideMoveSpeed * Time.deltaTime;
+                currentSidePosition + Input.x * Vector3.right * CharacterController.CharacterConfig.sideMoveSpeed * Time.deltaTime;
 
             nextMoveSidePosition.x = Mathf.Clamp(nextMoveSidePosition.x, -sideOffset, sideOffset);
             return nextMoveSidePosition;
@@ -75,9 +74,9 @@ namespace Character.States
         protected virtual Quaternion GetRotation()
         {
             Quaternion targetRotation =
-                Quaternion.Euler(new Vector3(0f, CharacterController.Data.YRotationMaxAngle * Input.normalized.x));
+                Quaternion.Euler(new Vector3(0f, CharacterController.CharacterConfig.yRotationMaxAngle * Input.normalized.x));
             
-            return Quaternion.RotateTowards(CharacterView.transform.rotation, targetRotation, CharacterController.Data.YRotationSpeed * Time.deltaTime);
+            return Quaternion.RotateTowards(CharacterView.transform.rotation, targetRotation, CharacterController.CharacterConfig.yRotationSpeed * Time.deltaTime);
         }
 
         private void SetCharacterAnimation()
