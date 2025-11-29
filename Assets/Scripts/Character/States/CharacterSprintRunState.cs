@@ -1,4 +1,5 @@
 using System;
+using PowerUps;
 using UnityEngine;
 
 namespace Character.States
@@ -10,13 +11,15 @@ namespace Character.States
     {
         private const string AnimatorSprintStateName = "SprintRunning"; 
         
+        private readonly SprintPowerUpConfig _sprintPowerUpConfig;
         private readonly int _sprintRunningTriggerHash;
 
         private IDisposable _exitStateDelayed;
 
-        public CharacterSprintRunState(CharacterController characterController, CharacterView characterView)
-            : base(characterController, characterView)
+        public CharacterSprintRunState(CharacterView characterView, CharacterMovementSettings characterMovementSettings,
+            BasePowerUpConfig basePowerUpConfig) : base(characterView, characterMovementSettings)
         {
+            _sprintPowerUpConfig = (SprintPowerUpConfig) basePowerUpConfig;
             _sprintRunningTriggerHash = Animator.StringToHash("SprintRunning");
         }
 
@@ -32,7 +35,7 @@ namespace Character.States
 
         protected override void OnTick(float dt)
         {
-            ProcessForwardMovement(CharacterController.CharacterConfig.springRunningSpeed);
+            ProcessForwardMovement(_sprintPowerUpConfig.springRunningSpeed);
             ProcessSideMovement();
         }
 

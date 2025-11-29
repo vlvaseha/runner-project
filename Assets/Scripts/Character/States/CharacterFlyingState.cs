@@ -1,6 +1,8 @@
 using System;
 using DG.Tweening;
+using PowerUps;
 using UnityEngine;
+using Zenject;
 
 namespace Character.States
 {
@@ -10,6 +12,7 @@ namespace Character.States
     public class CharacterFlyingState : CharacterMovementState
     {
         private readonly int _flyingAnimatorTriggerHash;
+        private readonly FlyingPowerUpConfig _flyingPowerUpConfig;
 
         private Tweener _lerpFlyingOOffset;
         private Vector3 _flyingOffset;
@@ -18,10 +21,11 @@ namespace Character.States
 
         private IDisposable _exitStateDelayed;
 
-        public CharacterFlyingState(CharacterController characterController, CharacterView characterView)
-            : base(characterController, characterView)
+        public CharacterFlyingState(CharacterView characterView, CharacterMovementSettings characterMovementSettings,
+            BasePowerUpConfig basePowerUpConfig) : base(characterView, characterMovementSettings)
         {
             _flyingAnimatorTriggerHash = Animator.StringToHash("Flying");
+            _flyingPowerUpConfig = (FlyingPowerUpConfig) basePowerUpConfig;
         }
 
         protected override void OnEnter()
@@ -34,8 +38,8 @@ namespace Character.States
         {
             _exitStateDelayed?.Dispose();
             
-            Vector3 flyingOffset = Vector3.up * CharacterController.CharacterConfig.flyingHeight;
-            LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, CharacterController.CharacterConfig.jumpDownDuration);
+            Vector3 flyingOffset = Vector3.up * _flyingPowerUpConfig.flyingHeight;
+            LerpFlyingOffset(flyingOffset * _flyingInterpolateProgress, Vector3.zero, _flyingPowerUpConfig.jumpDownDuration);
         }
 
         protected override void OnTick(float dt)
@@ -45,7 +49,7 @@ namespace Character.States
             
             if (_isForwardMovementAvailable)
             {
-                characterPosition = GetPosition(CharacterController.CharacterConfig.flyingForwardMoveSpeed);
+                characterPosition = GetPosition(_flyingPowerUpConfig.flyingForwardMoveSpeed);
             }
 
             characterPosition += _flyingOffset;
@@ -59,8 +63,8 @@ namespace Character.States
             switch (eventName)
             {
                 case CharacterAnimatorEvents.JumpingStarted:
-                    Vector3 flyingOffset = Vector3.up * CharacterController.CharacterConfig.flyingHeight;
-                    LerpFlyingOffset(Vector3.zero, flyingOffset, CharacterController.CharacterConfig.jumpUpDuration);
+                    Vector3 flyingOffset = Vector3.up * _flyingPowerUpConfig.flyingHeight;
+                    LerpFlyingOffset(Vector3.zero, flyingOffset, _flyingPowerUpConfig.jumpUpDuration);
                     break;
                 case CharacterAnimatorEvents.FlyingAnimationStarted:           
                     _isForwardMovementAvailable = true;
@@ -70,8 +74,8 @@ namespace Character.States
 
         protected override Quaternion GetRotation()
         {
-            float maxRotationAngle = CharacterController.CharacterConfig.zRotationMaxAngle;
-            float rotationSpeed = CharacterController.CharacterConfig.zRotationSpeed;
+            float maxRotationAngle = _flyingPowerUpConfig.zRotationMaxAngle;
+            float rotationSpeed = _flyingPowerUpConfig.zRotationSpeed;
             
             Quaternion targetRotation =
                 Quaternion.Euler(new Vector3(0f, 0f, -maxRotationAngle * Input.normalized.x));

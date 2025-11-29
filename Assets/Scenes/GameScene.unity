@@ -420,6 +420,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterConfig: {fileID: 11400000, guid: ea90910ef87c649dd9be6b8cadd381e8, type: 2}
+  powerUpConfigs:
+  - {fileID: 11400000, guid: 22d8e133975da4e70aac4d300e66fccf, type: 2}
+  - {fileID: 11400000, guid: f23c0b4cafa804629a227f02a34a219a, type: 2}
+  - {fileID: 11400000, guid: 308e02f8c80e1494aaf80c5680208cd6, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

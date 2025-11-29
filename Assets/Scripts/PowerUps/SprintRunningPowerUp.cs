@@ -1,4 +1,5 @@
 using Signals.PowerUpSignals;
+using Zenject;
 
 namespace PowerUps
 {
@@ -7,10 +8,18 @@ namespace PowerUps
     /// </summary>
     public class SprintRunningPowerUp : BaseCollectablePowerUp
     {
+        [Inject]
+        private void Construct(SignalBus signalBus, 
+            [Inject(Id = CollectablePowerUpId.SprintRunningPowerUp)] BasePowerUpConfig powerUpConfig)
+        {
+            SignalBus = signalBus;
+            PowerUpConfig = powerUpConfig;
+        }
+        
         protected override void PlayerTriggeredHandler()
         {
             base.PlayerTriggeredHandler();
-            SignalBus.Fire(new SprintRunningPowerUpCollectedSignal(18f, PowerUpDuration));
+            SignalBus.Fire(new SprintRunningPowerUpCollectedSignal(PowerUpConfig));
         }
     }
 }

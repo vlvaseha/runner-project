@@ -8,19 +8,9 @@ namespace PowerUps
     /// </summary>
     public class PowerUpTrigger : MonoBehaviour
     {
-        #region Fields
-
         private bool _isTriggered;
-
-        #endregion
         
-        #region Events
-
         public event Action OnPlayerTriggered;
-
-        #endregion
-
-        #region Class lifecycle
 
         private void OnTriggerEnter(Collider other)
         {
@@ -35,7 +25,5 @@ namespace PowerUps
                 _isTriggered = true;
             }
         }
-
-        #endregion
     }
 }

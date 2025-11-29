@@ -1,20 +1,14 @@
+using PowerUps;
+
 namespace Signals.PowerUpSignals
 {
     public class BasePowerUpCollectedSignal 
     {
-        #region Properties
+        public BasePowerUpConfig PowerUpConfig { get; }
 
-        public float PowerUpDuration { get; }
-
-        #endregion
-
-        #region Class lifecycle
-
-        public BasePowerUpCollectedSignal(float duration)
+        protected BasePowerUpCollectedSignal(BasePowerUpConfig powerUpConfig)
         {
-            PowerUpDuration = duration;
+            PowerUpConfig = powerUpConfig;
         }
-
-        #endregion
     }
 }

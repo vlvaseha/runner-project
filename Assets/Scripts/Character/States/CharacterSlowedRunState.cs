@@ -1,4 +1,5 @@
 using System;
+using PowerUps;
 using UnityEngine;
 
 namespace Character.States
@@ -10,14 +11,16 @@ namespace Character.States
     {
         private const string AnimatorRunningStateName = "Running"; 
         
+        private readonly SlowDownPowerUpConfig _slowDownPowerUpConfig;
         private readonly int _runningTriggerHash;
         private readonly int _runningSpeedAnimationHash;
 
         private IDisposable _exitStateDelayed;
 
-        public CharacterSlowedRunState(CharacterController characterController, CharacterView characterView)
-            : base(characterController, characterView)
+        public CharacterSlowedRunState(CharacterView characterView, CharacterMovementSettings characterMovementSettings,
+            BasePowerUpConfig basePowerUpConfig) : base(characterView, characterMovementSettings)
         {
+            _slowDownPowerUpConfig = (SlowDownPowerUpConfig) basePowerUpConfig;
             _runningTriggerHash = Animator.StringToHash("Running");
             _runningSpeedAnimationHash = Animator.StringToHash("RunningSpeed");
         }
@@ -25,7 +28,7 @@ namespace Character.States
         protected override void OnEnter()
         {
             SetCharacterAnimation();
-            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, CharacterController.CharacterConfig.runningAnimationSpeed);
+            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, _slowDownPowerUpConfig.runningAnimationSpeed);
         }
 
         protected override void OnExit()
@@ -35,7 +38,7 @@ namespace Character.States
 
         protected override void OnTick(float dt)
         {
-            ProcessForwardMovement(CharacterController.CharacterConfig.slowRunningSpeed);
+            ProcessForwardMovement(_slowDownPowerUpConfig.slowRunningSpeed);
             ProcessSideMovement();
         }
 

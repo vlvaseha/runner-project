@@ -15,19 +15,17 @@ namespace Character
         private readonly CharacterStateMachine _characterStateMachine;
         private readonly SignalBus _signalBus;
         private readonly CharacterStateData _characterStateData;
+        private readonly CharacterStatesFactory _characterStatesFactory;
         
         private IPlayerInput _playerInput;
 
-        public CharacterConfig CharacterConfig { get; }
-
-        public CharacterController(CharacterView characterView, SignalBus signalBus, CharacterConfig characterConfig)
+        public CharacterController(CharacterView characterView, SignalBus signalBus, DiContainer container)
         {
             _characterView = characterView;
             _signalBus = signalBus;
             _characterStateMachine = new CharacterStateMachine();
             _characterStateData = new CharacterStateData(characterView);
-            
-            CharacterConfig = characterConfig;
+            _characterStatesFactory = new CharacterStatesFactory(container, characterView);
         }
 
         public void Initialize()
@@ -68,11 +66,11 @@ namespace Character
 
         private void InitializeStateMachine()
         {
-            CharacterIdleState characterIdleState = new CharacterIdleState(this, _characterView);
-            CharacterMovementState movementState = new CharacterMovementState(this, _characterView);
-            CharacterFlyingState flyingState = new CharacterFlyingState(this, _characterView);
-            CharacterSlowedRunState characterSlowedRunState = new CharacterSlowedRunState(this, _characterView);
-            CharacterSprintRunState characterSprintRunState = new CharacterSprintRunState(this, _characterView);
+            CharacterIdleState characterIdleState = _characterStatesFactory.CreateState<CharacterIdleState>();
+            CharacterMovementState movementState = _characterStatesFactory.CreateState<CharacterMovementState>();
+            CharacterFlyingState flyingState = _characterStatesFactory.CreateState<CharacterFlyingState>();
+            CharacterSlowedRunState characterSlowedRunState = _characterStatesFactory.CreateState<CharacterSlowedRunState>();
+            CharacterSprintRunState characterSprintRunState = _characterStatesFactory.CreateState<CharacterSprintRunState>();
 
             Transition<CharacterMovementState> toMovementTransition = new Transition<CharacterMovementState>(movementState, _characterStateData.IsDefaultMovementActive);
             Transition<CharacterMovementState> toFlyingTransition = new Transition<CharacterMovementState>(flyingState, _characterStateData.IsFlyingMovementActive);

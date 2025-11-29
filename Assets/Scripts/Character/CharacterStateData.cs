@@ -45,7 +45,7 @@ namespace Character
                 case FlyingPowerUpCollectedSignal flyingPowerUpCollectedSignal:
                     _isFlyingMovementActive = true;
                     _effectDurationHandler = Observable
-                        .Timer(TimeSpan.FromSeconds(flyingPowerUpCollectedSignal.PowerUpDuration))
+                        .Timer(TimeSpan.FromSeconds(flyingPowerUpCollectedSignal.GetDuration()))
                         .Subscribe(_ => ResetToDefaultMovementState())
                         .AddTo(_characterView);
                     
@@ -53,7 +53,7 @@ namespace Character
                 case SprintRunningPowerUpCollectedSignal sprintRunningPowerUpCollectedSignal:
                     _isSprintRunningActive = true;
                     _effectDurationHandler = Observable
-                        .Timer(TimeSpan.FromSeconds(sprintRunningPowerUpCollectedSignal.PowerUpDuration))
+                        .Timer(TimeSpan.FromSeconds(sprintRunningPowerUpCollectedSignal.GetDuration()))
                         .Subscribe(_ => ResetToDefaultMovementState())
                         .AddTo(_characterView);
                     
@@ -61,7 +61,7 @@ namespace Character
                 case SlowdownPowerUpCollectedSignal slowdownPowerUpCollectedSignal:
                     _isSlowdownMovementActive = true;
                     _effectDurationHandler = Observable
-                        .Timer(TimeSpan.FromSeconds(slowdownPowerUpCollectedSignal.PowerUpDuration))
+                        .Timer(TimeSpan.FromSeconds(slowdownPowerUpCollectedSignal.GetDuration()))
                         .Subscribe(_ => ResetToDefaultMovementState())
                         .AddTo(_characterView);
                     

@@ -9,14 +9,16 @@ namespace Character.States
     {
         protected Vector2 Input { get; private set; }
         
-        private const string AnimatorRunningStateName = "Running"; 
-        
+        private const string AnimatorRunningStateName = "Running";
+
+        private readonly CharacterMovementSettings _characterMovementSettings;
         private readonly int _runningTriggerHash;
         private readonly int _runningSpeedAnimationHash;
 
-        public CharacterMovementState(CharacterController characterController, CharacterView characterView)
-            : base(characterController, characterView)
+        public CharacterMovementState(CharacterView characterView, 
+            CharacterMovementSettings characterMovementSettings) : base(characterView)
         {
+            _characterMovementSettings = characterMovementSettings;
             _runningTriggerHash = Animator.StringToHash("Running");
             _runningSpeedAnimationHash = Animator.StringToHash("RunningSpeed");
         }
@@ -24,7 +26,7 @@ namespace Character.States
         protected override void OnEnter()
         {
             SetCharacterAnimation();
-            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, CharacterController.CharacterConfig.runningAnimationMultiplier);
+            CharacterView.Animator.SetFloat(_runningSpeedAnimationHash, _characterMovementSettings.runningAnimationMultiplier);
         }
 
         protected override void OnInputUpdated(Vector2 input)
@@ -34,7 +36,7 @@ namespace Character.States
 
         protected override void OnTick(float deltaTime)
         {
-            ProcessForwardMovement(CharacterController.CharacterConfig.forwardMoveSpeed);
+            ProcessForwardMovement(_characterMovementSettings.forwardMoveSpeed);
             ProcessSideMovement();
         }
 
@@ -52,8 +54,7 @@ namespace Character.States
         protected Vector3 GetPosition(float moveSpeed)
         {
             Vector3 currentMoveForwardPosition = CharacterView.transform.position;
-            Vector3 nextMoveForwardPosition =
-                currentMoveForwardPosition + Vector3.forward * moveSpeed * Time.deltaTime;
+            Vector3 nextMoveForwardPosition = currentMoveForwardPosition + Vector3.forward * (moveSpeed * Time.deltaTime);
 
             nextMoveForwardPosition.y = 0f;
             return nextMoveForwardPosition;
@@ -61,11 +62,11 @@ namespace Character.States
 
         private Vector3 GetSidePosition()
         {
-            float sideOffset = CharacterController.CharacterConfig.maxSideMovementOffset;
+            float sideOffset = _characterMovementSettings.maxSideMovementOffset;
 
             Vector3 currentSidePosition = CharacterView.ViewRoot.localPosition;
             Vector3 nextMoveSidePosition =
-                currentSidePosition + Input.x * Vector3.right * CharacterController.CharacterConfig.sideMoveSpeed * Time.deltaTime;
+                currentSidePosition + Vector3.right * (Input.x * _characterMovementSettings.sideMoveSpeed * Time.deltaTime);
 
             nextMoveSidePosition.x = Mathf.Clamp(nextMoveSidePosition.x, -sideOffset, sideOffset);
             return nextMoveSidePosition;
@@ -74,9 +75,9 @@ namespace Character.States
         protected virtual Quaternion GetRotation()
         {
             Quaternion targetRotation =
-                Quaternion.Euler(new Vector3(0f, CharacterController.CharacterConfig.yRotationMaxAngle * Input.normalized.x));
+                Quaternion.Euler(new Vector3(0f, _characterMovementSettings.yRotationMaxAngle * Input.normalized.x));
             
-            return Quaternion.RotateTowards(CharacterView.transform.rotation, targetRotation, CharacterController.CharacterConfig.yRotationSpeed * Time.deltaTime);
+            return Quaternion.RotateTowards(CharacterView.transform.rotation, targetRotation, _characterMovementSettings.yRotationSpeed * Time.deltaTime);
         }
 
         private void SetCharacterAnimation()

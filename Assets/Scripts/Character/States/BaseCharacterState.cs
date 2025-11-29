@@ -7,12 +7,10 @@ namespace Character.States
     /// </summary>
     public class BaseCharacterState<TState> : BaseState where TState : BaseCharacterState<TState>
     {
-        protected CharacterController CharacterController { get; }
         protected CharacterView CharacterView { get; }
 
-        protected BaseCharacterState(CharacterController characterController, CharacterView characterView)
+        protected BaseCharacterState(CharacterView characterView)
         {
-            CharacterController = characterController;
             CharacterView = characterView;
         }
 

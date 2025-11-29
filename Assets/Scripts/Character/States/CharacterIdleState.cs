@@ -7,10 +7,9 @@ namespace Character.States
     /// </summary>
     public class CharacterIdleState : BaseCharacterState<CharacterIdleState>
     {
-        private readonly int IdleStateHash = Animator.StringToHash("Idle");
+        private static readonly int IdleStateHash = Animator.StringToHash("Idle");
         
-        public CharacterIdleState(CharacterController characterController, CharacterView characterView)
-            : base(characterController, characterView) { }
+        public CharacterIdleState(CharacterView characterView) : base(characterView) { }
 
         public override void Enter()
         {

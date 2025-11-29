@@ -8,25 +8,16 @@ namespace PowerUps
     /// </summary>
     public class BaseCollectablePowerUp : MonoBehaviour
     {
-        #region Fields
-
         [SerializeField] private float _powerUpDuration = 10f;
         [SerializeField] private PowerUpTrigger _powerUpTrigger;
         [Space]
         [SerializeField] private GameObject _idleAnimationGO;
         [SerializeField] private GameObject _disappearAnimationGO;
+        [SerializeField] private string sdf;
 
-        #endregion
-
-        #region Properties
-
-        protected float PowerUpDuration => _powerUpDuration;
-        [Inject] protected SignalBus SignalBus { get; }
-
-        #endregion
-    
-        #region Unity lifecycle
-
+        protected SignalBus SignalBus { get; set; }
+        protected BasePowerUpConfig PowerUpConfig { get; set; }
+        
         private void Start()
         {
             _powerUpTrigger.OnPlayerTriggered += PlayerTriggeredHandler;
@@ -37,16 +28,10 @@ namespace PowerUps
             _powerUpTrigger.OnPlayerTriggered -= PlayerTriggeredHandler;
         }
 
-        #endregion
-
-        #region Methods
-
         protected virtual void PlayerTriggeredHandler()
         {
             _idleAnimationGO.gameObject.SetActive(false);
             _disappearAnimationGO.gameObject.SetActive(true);
         }
-
-        #endregion
     }
 }
